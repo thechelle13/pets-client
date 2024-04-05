@@ -1,11 +1,49 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { getUserById } from "../services/userServices";
+import { getAllPosts } from "../services/postServices";
 
 
-export const Home = ({ token}) => {
+export const Home = ({ token, setToken}) => {
+
+  const [currentUser, setCurrentUser] = useState({ user: {} })
+  const [posts, setPosts] = useState([])
+  const navigate = useNavigate();
+
+  // const getAndSetCurrentUser = () => {
+  //   getUserById().then((currentUser) => {
+  //     setCurrentUser(currentUser);
+  //   });
+  // };
+
+  const getAndSetCurrentUser = () => {
+    const userId = localStorage.getItem("user_id"); 
+    if (userId) {
+      getUserById(userId).then((currentUser) => {
+        setCurrentUser(currentUser);
+      });
+    }
+  };
+
+  const getAndSetMyPosts = async () => {
+    try {
+      const postsArray = await getAllPosts();
+      const filteredArray = postsArray.filter((post) => post.is_owner === true);
+      // const sortedArray = filteredArray.sort(
+      //   (a, b) => new Date(b.publication_date) - new Date(a.publication_date)
+      // );
+      setPosts(filteredArray);
+    } catch (error) {
+      console.error("Error fetching posts:", error);
+    }
+  };
+
   useEffect(() => {
-    console.log("Token in Home:", token);
-  }, [token]);
+        
+    // Fetch and set tech user
+    getAndSetCurrentUser();
+    getAndSetMyPosts();
+  }, []); 
 
 
   return (
@@ -76,6 +114,9 @@ export const Home = ({ token}) => {
             )}
           </div> */}
         </div>
+        <h1 className="text-3xl text-blue-500 font-semibold mb-4 text-center">
+            My Pets
+          </h1>
       </div>
     </main>
   );

@@ -1,40 +1,49 @@
 # React + Vite + TailWind
 
-Project Name: Community Pets
+## Community Pets - Project README
 
-React client to interact with Pet API.
+### Introduction
 
-Start React Project With Vite
-If you just want to set up a blank React project, follow these steps.
+This project is a practice ClientSide, Front-End created for a previous front-end capstone project. 
 
-Make a new directory in workspace for the application.
-In that new directory, create a React app template
+### Project Origin
+
+As a professional pet sitter, I often have clients ask for sits when I am unavailable. I thought it would be cool if I could connect my clients in one spot so that when I am not available for sits, they could trade sits with each other.
+
+### Planning
+
+An Entity-Relationship Diagram (ERD) of base information was designed to include the users, who can create a profile, add their pets, or edit either entity within the UI while keeping their information only visible to the user who is logged in at the time. The structure of the post includes relevant information but does not share the user's information, allowing responses on the site in a comment, response, and like ability.
+
+### ERD
+[Link to ERD](https://dbdiagram.io/d/My-page-API-64ff5c7302bd1c4a5e5d5bb6)
+
+### Getting Started
+
+#### Start React Project With Vite
+
+If you just want to set up a blank React project, follow these steps:
+
+1. Make a new directory in workspace for the application.
+2. In that new directory, create a React app template:
 npm create vite@latest . -- --template react
-Open in VS Code
-npm run dev to start the development server
 
+3. Open in VS Code.
+4. Run `npm run dev` to start the development server.
 
-To Use Tailwind
-To use Tailwind, follow these steps. If you already started the dev server, you can stop it, or just open a new terminal and run these commands.
+#### To Use Tailwind
+
+To use Tailwind, follow these steps:
+
+1. Install dependencies:
 
 npm install -D tailwindcss postcss autoprefixer
-npx tailwindcss init -p
 
-Replace the contents of tailwind.config.js with the following.
+2. Initialize Tailwind configuration:
 
-/** @type {import('tailwindcss').Config} */
-export default {
-  content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
-  ],
-  theme: {
-    extend: {},
-  },
-  plugins: [],
-}
 
-Replace the contents of index.css
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+3. Replace the contents of `tailwind.config.js` with the provided configuration.
+4. Replace the contents of `index.css` with the provided CSS.
+
+
+
+

@@ -42,3 +42,26 @@ export const getAllPosts = () => {
 //          }
     
 // };
+
+// export const addLikeToPost = async (postId) => {
+//   const response = await fetch(`http://localhost:8000/posts/${postId}`, {
+//       method: "POST",
+//       headers: {
+//           Authorization: `Token ${localStorage.getItem("auth_token")}`,
+//           "Content-Type": "application/json",
+//       },
+//   });
+//   return response.json();
+// };
+
+export const addCommentToPost = async (postId, commentText) => {
+  const response = await fetch(`http://localhost:8000/comments/${postId}`, {
+      method: "POST",
+      headers: {
+          Authorization: `Token ${localStorage.getItem("auth_token")}`,
+          "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ text: commentText }),
+  });
+  return response.json();
+};

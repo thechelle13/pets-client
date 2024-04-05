@@ -47,6 +47,14 @@ export const PostDetail = () => {
           >
             Contact
           </button>
+          <button 
+           className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-700 focus:outline-none focus:ring focus:border-blue-300"
+          onClick={() => handleAddComment(post.id, commentText)}>Comment</button>
+          <input
+                                type="text"
+                                placeholder="Add a comment"
+                                onChange={(e) => setCommentText(e.target.value)}
+                            />
         <div className="button-div mt-4 flex space-x-4 items-center justify-center">
           {post && post.is_owner && (
             <button
