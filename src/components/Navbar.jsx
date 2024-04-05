@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 
 export const NavBar = ({ token, setToken }) => {
-  console.log("Token in NavBar:", token); // Log the token prop
+  // console.log("Token in NavBar:", token); 
   
   const navigate = useNavigate();
   const navbar = useRef();
@@ -47,14 +47,8 @@ export const NavBar = ({ token, setToken }) => {
                  
                    Posts
                 </Link>
-                {/* <Link to="/myPosts" className="navbar-item text-blue-500 mx-4">
-                 
-                   My Posts
-                </Link> */}
-                {/* <Link to="/pets" className="navbar-item text-blue-500 mx-4">
-                
-                  My Pets
-                </Link> */}
+             
+            
               </>
             )}
           </div>

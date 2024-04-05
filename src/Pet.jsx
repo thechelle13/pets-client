@@ -4,7 +4,7 @@ import { NavBar } from "./components/Navbar";
 
 export const Pet = () => {
   const [token, setTokenState] = useState(localStorage.getItem('auth_token'));
-  console.log("Initial token in Pet component:", token);
+  // console.log("Initial token in Pet component:", token);
   const setToken = (newToken) => {
     localStorage.setItem('auth_token', newToken);
     setTokenState(newToken);

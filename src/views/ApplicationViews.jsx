@@ -8,7 +8,7 @@ import { PostDetail } from "../pages/PostDetails";
 
 
 export const ApplicationViews = ({ token, setToken }) => {
-  console.log("Token in ApplicationViews:", token); // Log the token prop
+  // console.log("Token in ApplicationViews:", token); 
   return (
     <> 
       <Routes>
