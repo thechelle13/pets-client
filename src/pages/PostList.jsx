@@ -48,7 +48,7 @@ export const PostList = ({ setToken, token }) => {
                           
                             {/* <p>Owner: {post.petuser.user.username}</p> */}
                             <p>City: {post.pet_user.city}</p>
-                            <div className="flex items-center justify-between"> {/* Using flexbox to align items and create space */}
+                            <div className="flex items-center justify-between">
                             <button 
                                     className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-700 focus:outline-none focus:ring focus:border-blue-300 flex items-center space-x-1"
                                     onClick={() => handleAddLike(post.id)}>
