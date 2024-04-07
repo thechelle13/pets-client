@@ -48,14 +48,14 @@ export const Home = ({ token, setToken}) => {
 
   return (
     <main>
-      <div className="text-center my-8 bg-gray-400 p-6 rounded-lg shadow-lg max-w-md mx-auto">
-        <h1 className="text-5xl font-semibold mb-4 text-blue-500">
+      <div className="text-center my-8 p-6 rounded-lg shadow-lg max-w-md mx-auto">
+        <h1 className="text-5xl font-semibold mb-4 text-blue-800">
           Welcome to Community Pets
         </h1>
 
         <div className="user-info-container bg-gray-500 p-6 rounded-md shadow-md">
         <p className="text-black-700 mb-4">
-          A platform designed to connect pet owners with other pet owners to exchange pet sitting services.
+          A platform designed to connect pet owners community to exchange pet sitting services.
         </p>
           {/* <h2 className="text-xl font-semibold mb-2 text-blue-800">
             {petUser.user.first_name} {petUser.user.last_name}
@@ -68,13 +68,10 @@ export const Home = ({ token, setToken}) => {
             Edit Profile
           </button> */}
         </div>
-
-       
-
-       
+  
 
         <div className="container mx-auto mt-8">
-          <h1 className="text-3xl text-blue-500 font-semibold mb-4 text-center">
+          <h1 className="text-3xl text-blue-800 font-semibold mb-4 text-center">
             My Posts
           </h1>
 
@@ -114,7 +111,7 @@ export const Home = ({ token, setToken}) => {
             )}
           </div> */}
         </div>
-        <h1 className="text-3xl text-blue-500 font-semibold mb-4 text-center">
+        <h1 className="text-3xl text-blue-800 font-semibold mb-4 text-center">
             My Pets
           </h1>
       </div>
