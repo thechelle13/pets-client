@@ -7,6 +7,7 @@ import { PostList } from "../pages/PostList";
 import { PostDetail } from "../pages/PostDetails";
 
 
+
 export const ApplicationViews = ({ token, setToken }) => {
   // console.log("Token in ApplicationViews:", token); 
   return (
@@ -18,7 +19,6 @@ export const ApplicationViews = ({ token, setToken }) => {
           {/* Add Routes here */}
           <Route path="/" element={<Home token={token} setToken={setToken} />} />
 
-
           <Route
             path="/postLists"
             element={<PostList token={token} setToken={setToken} />}   />
@@ -26,10 +26,7 @@ export const ApplicationViews = ({ token, setToken }) => {
             path="/posts/:postId"
             element={<PostDetail token={token} setToken={setToken} />}
             />
-    
-          
-   
-
+                
 
         </Route>
       </Routes>

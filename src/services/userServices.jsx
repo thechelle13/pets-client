@@ -1,26 +1,25 @@
-export const getUser = () => {
-    return fetch(`http://localhost:8000/users`, {
+export const getUser = async (token) => {
+  try {
+    const response = await fetch(`http://localhost:8000/users`, {
       method: "GET",
       headers: {
-        Authorization: `Token ${localStorage.getItem("auth_token")}`,
+        Authorization: `Token ${token}`,
         "Content-Type": "application/json",
       },
-    }).then((res) => res.json());
-  };
-
-  export const getUserById = (id) => {
-    console.log()
-    return fetch(`http://localhost:8000/users/${id}`, {
-      method: "GET",
-      headers: {
-        Authorization: `Token ${localStorage.getItem("auth_token")}`,
-        "Content-Type": "application/json",
-      },
-    }).then((res) => res.json());
-  };
+    });
+    if (!response.ok) {
+      throw new Error("Failed to fetch user data");
+    }
+    const data = await response.json();
+    return data[0]; 
+  } catch (error) {
+    console.error("Error fetching user data:", error);
+    throw error; 
+  }
+};
   
-  
-  export const editUser = (userId, updatedUser) => {
+  export const updateUser = (userId, updatedUser) => {
+    console.log("Data sent to API for edit:", updatedUser);
     return fetch(`http://localhost:8000/users/${userId}`, {
       method: "PUT",
       headers: {
