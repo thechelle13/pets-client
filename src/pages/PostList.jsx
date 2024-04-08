@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { addCommentToPost, addLikeToPost, getAllPosts } from "../services/postServices";
-import { getUserById } from "../services/userServices";
+
 
 export const PostList = ({ setToken, token }) => {
     // const [user, setUser] = useState(null);

@@ -27,21 +27,38 @@ export const getAllPosts = () => {
       },
     }).then((res) => res.json());
   };
-  
-//   const handleDelete = async () => {
-//     // deletion logic here
 
-//      await fetch(`http://localhost:8000/posts/${post.id}`, {
-//          method: "DELETE",
-//         headers: {
-//              Authorization: `Token ${JSON.parse(localStorage.getItem("pet_token")).token}`
-//          }
-//      });
-//           if (response.status === 204) {
-//           fetchPosts(showAll)
-//          }
+
+export const updatePost = async (postId, postData) => {
+  try {
+    const response = await fetch(`/api/posts/${postId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(postData),
+    });
     
-// };
+    if (!response.ok) {
+      throw new Error('Failed to update post');
+    }
+
+    return await response.json();
+  } catch (error) {
+    throw new Error('Error updating post: ' + error.message);
+  }
+};
+
+
+export const editPost = (updatedPost) => {
+  return fetch(`http://localhost:8000/posts/${updatedPost.id}`, {
+    method: "PUT",
+    headers: {
+      Authorization: `Token ${localStorage.getItem("auth_token")}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(updatedPost),})
+}
 
 export const addLikeToPost = async (postId) => {
   const response = await fetch(`http://localhost:8000/posts/${postId}`, {
