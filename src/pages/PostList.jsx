@@ -57,7 +57,8 @@ export const PostList = ({ setToken, token }) => {
                                     </svg>
                                     <span>Like</span>
                                 </button>
-                                <Link to={`/posts/${post.id}`} className="text-blue-800">
+                                <Link key={post.id} to={`/postLists/${post.id}`} 
+                                className="text-blue-800">
                                     View Details
                                 </Link>
                             </div>
