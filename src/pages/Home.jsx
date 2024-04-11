@@ -42,7 +42,7 @@ export const Home = ({ token }) => {
     fetchData();
   }, [token]);
 
-  const handleEdit = () => {
+  const handleUserEdit = () => {
     setIsEditing(true);
     setEditedUserInfo({
       email: currentUser.email,
@@ -55,9 +55,25 @@ export const Home = ({ token }) => {
     });
   };
 
+  // const handleInputChange = (e) => {
+  //   const { name, value } = e.target;
+  //   setEditedUserInfo({ ...editedUserInfo, [name]: value });
+  // };
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setEditedUserInfo({ ...editedUserInfo, [name]: value });
+    if (name.includes("pet_user")) {
+      const petUserField = name.split(".")[1];
+      setEditedUserInfo((prevUserInfo) => ({
+        ...prevUserInfo,
+        pet_user: {
+          ...prevUserInfo.pet_user,
+          [petUserField]: value,
+        },
+      }));
+    } else {
+      setEditedUserInfo({ ...editedUserInfo, [name]: value });
+    }
   };
 
   const saveChanges = async () => {
@@ -73,6 +89,12 @@ export const Home = ({ token }) => {
     }
   };
 
+  const handlePostEdit = () => {
+    setIsEditing(true);
+    
+  };
+
+
   return (
     <main className="bg-gradient-to-b from-blue-500 to-purple-500 h-full">
       <div className="bg-gradient-to-b from-blue-200 to-blue-800 text-center my-8 p-6 rounded-lg shadow-lg max-w-md mx-auto">
@@ -87,7 +109,7 @@ export const Home = ({ token }) => {
           {currentUser && (
             <>
               <div className="mb-2">
-                <h2 className="text-xl font-semibold text-black">
+                <h2 className="text-3xl font-semibold text-black">
                   {isEditing ? (
                     <>
                       <input
@@ -124,26 +146,28 @@ export const Home = ({ token }) => {
                 <p className="text-blue-800 mb-2">{currentUser.email}</p>
               )}
               {isEditing ? (
+              <>
                 <textarea
-                  name="bio"
-                  value={editedUserInfo.bio}
+                  name="pet_user.bio"
+                  value={editedUserInfo.pet_user.bio}
                   onChange={handleInputChange}
                   className="mb-2"
-                />
-              ) : (
-                <p className="text-blue-800 mb-2">{currentUser.pet_user.bio}</p>
-              )}
-              {isEditing ? (
+                 />
                 <input
                   type="text"
-                  name="city"
-                  value={editedUserInfo.city}
+                  name="pet_user.city"
+                  value={editedUserInfo.pet_user.city}
                   onChange={handleInputChange}
                   className="mb-2"
                 />
-              ) : (
+              </>
+            ) : (
+              <>
+                <p className="text-blue-800 mb-2">{currentUser.pet_user.bio}</p>
                 <p className="text-blue-800 mb-2">{currentUser.pet_user.city}</p>
-              )}
+              </>
+            )}
+
               {isEditing ? (
                 <button
                   onClick={saveChanges}
@@ -155,7 +179,7 @@ export const Home = ({ token }) => {
               ) : (
                 <button
                   className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-700"
-                  onClick={handleEdit}
+                  onClick={handleUserEdit}
                 >
                   Edit Profile
                 </button>
@@ -180,10 +204,18 @@ export const Home = ({ token }) => {
               </Link>
             ))
           ) : (
+            
             <p className="text-xl font-semibold mb-4 text-center">
               No posts found.
             </p>
+            
           )}
+          {/* <button
+            className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-700"
+            onClick={handlePostEdit}
+          >
+            Edit Post
+          </button> */}
         </div>
 
         <div className="container mx-auto mt-8">
