@@ -55,11 +55,6 @@ export const Home = ({ token }) => {
     });
   };
 
-  // const handleInputChange = (e) => {
-  //   const { name, value } = e.target;
-  //   setEditedUserInfo({ ...editedUserInfo, [name]: value });
-  // };
-
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     if (name.includes("pet_user")) {
@@ -89,10 +84,7 @@ export const Home = ({ token }) => {
     }
   };
 
-  const handlePostEdit = () => {
-    setIsEditing(true);
-    
-  };
+
 
 
   return (
@@ -198,10 +190,11 @@ export const Home = ({ token }) => {
           ) : userPosts.length ? (
             userPosts.map((post) => (
               <Link key={post.id} to={`/postLists/${post.id}`}>
-                <div className="bg-gray-100 rounded-md p-4 mb-4">
-                  <div className="text-xl font-semibold">Description: {post.description}</div>
-                </div>
-              </Link>
+  <div className="bg-gray-100 rounded-md p-4 mb-4">
+    <div className="text-xl font-semibold">Description: {post.description}</div>
+  </div>
+</Link>
+
             ))
           ) : (
             

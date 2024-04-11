@@ -6,17 +6,17 @@ export const PostDetail = () => {
   const { postId } = useParams();
   const [post, setPost] = useState(null);
   const [commentText, setCommentText] = useState(""); 
-  const [isCommenting, setIsCommenting] = useState(false); // State to track if user is commenting
+  const [isCommenting, setIsCommenting] = useState(false); 
   const navigate = useNavigate();
 
-  const handleContact = () => {
-    if (post && post.pet_user && post.pet_user.email) {
-      const email = post.pet_user.email;
-      window.open(`mailto:${email}`, "_blank");
-    } else {
-      console.error("No email found for the poster");
-    }
-  };
+  // const handleContact = () => {
+  //   if (post && post.pet_user && post.pet_user.email) {
+  //     const email = post.pet_user.email;
+  //     window.open(`mailto:${email}`, "_blank");
+  //   } else {
+  //     console.error("No email found for the poster");
+  //   }
+  // };
 
   useEffect(() => {
     getPostById(postId).then((post) => {
@@ -25,7 +25,7 @@ export const PostDetail = () => {
   }, [postId]);
 
   const handleEdit = () => {
-    navigate(`/edit-post/${postId}`);
+    
   };
 
   const handleAddComment = () => {
@@ -36,6 +36,23 @@ export const PostDetail = () => {
 
   const toggleCommenting = () => {
     setIsCommenting(!isCommenting);
+  };
+
+
+  const handlePostEdit = () => {
+    setIsEditing(true);
+    
+  };
+
+  const handleInputChange = (e) => {
+   
+     
+      setEditedPostInfo();
+    
+  };
+
+  const saveChanges = async () => {
+   
   };
 
   return (
