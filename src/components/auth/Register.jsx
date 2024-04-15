@@ -30,16 +30,20 @@ export const Register = () => {
                 "Content-Type": "application/json"
             }
         })
-            .then(res => res.json())
-            .then(authInfo => {
-                if (authInfo && authInfo.token) {
-                    localStorage.setItem("pet_token", JSON.stringify(authInfo))
-                    navigate("/")
-                } else {
-                    existDialog.current.showModal()
-                }
-            })
-    }
+        .then(res => res.json())
+        .then(authInfo => {
+            if (authInfo && authInfo.token) {
+                localStorage.setItem("pet_token", JSON.stringify(authInfo.token));
+                console.log("Token stored:", authInfo.token);
+                navigate("/");
+            } else {
+                existDialog.current.showModal();
+            }
+        })
+        .catch(error => {
+            console.error("Error registering user:", error);
+        });
+};
 
     return (
         <main className="container--login">
