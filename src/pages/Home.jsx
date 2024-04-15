@@ -3,8 +3,12 @@ import { Link } from "react-router-dom";
 import { getUser, updateUser } from "../services/userServices";
 import { getAllPosts } from "../services/postServices";
 import { getUserPets } from "../services/petServices";
+import emma from "../assets/emma.png";
+import purrscilla from "../assets/purrscilla.png";
 
-export const Home = ({ token }) => {
+export const Home = ({ token, setToken }) => {
+  // const [currentUser, setCurrentUser] = useState([]);
+  // const [currentUser, setCurrentUser] = useState({ user: {} });
   const [currentUser, setCurrentUser] = useState(null);
   const [userPosts, setUserPosts] = useState([]);
   const [userPets, setUserPets] = useState([]);
@@ -21,25 +25,43 @@ export const Home = ({ token }) => {
   });
   const [savingChanges, setSavingChanges] = useState(false);
 
+  // const getAndSetUser = () => {
+  //   getUser().then((currentUser) => {
+  //     setCurrentUser(currentUser);
+  //   });
+  // };
+
+  // useEffect(() => {
+        
+  //   // Fetch and set tech user
+  //   getAndSetUser();
+   
+  // }, []); 
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const user = await getUser(token);
-        setCurrentUser(user);
+        // Fetch user data using the provided token
+        const userData = await getUser(token);
+        setCurrentUser(userData);
 
+        // Fetch posts and pets associated with the user
         const posts = await getAllPosts();
         setUserPosts(posts.filter((post) => post.is_owner === true));
 
-        const pets = await getUserPets(user.id);
-        setUserPets(pets);
+        const pets = await getUserPets(userData.id);
+        setUserPets(pets.filter((pet) => pet.is_owner === true));
 
+        // Set loading to false once all data is fetched
         setLoading(false);
       } catch (error) {
         console.error("Error fetching user data:", error);
       }
     };
 
-    fetchData();
+    if (token) {
+      fetchData(); // Call fetchData function when token changes
+    }
   }, [token]);
 
   const handleUserEdit = () => {
@@ -155,8 +177,8 @@ export const Home = ({ token }) => {
               </>
             ) : (
               <>
-                <p className="text-blue-800 mb-2">{currentUser.pet_user.bio}</p>
-                <p className="text-blue-800 mb-2">{currentUser.pet_user.city}</p>
+                {/* <p className="text-blue-800 mb-2">{currentUser.pet_user.bio}</p>
+                <p className="text-blue-800 mb-2">{currentUser.pet_user.city}</p> */}
               </>
             )}
 
@@ -203,12 +225,7 @@ export const Home = ({ token }) => {
             </p>
             
           )}
-          {/* <button
-            className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-700"
-            onClick={handlePostEdit}
-          >
-            Edit Post
-          </button> */}
+         
         </div>
 
         <div className="container mx-auto mt-8">
@@ -233,6 +250,11 @@ export const Home = ({ token }) => {
           )}
         </div>
       </div>
+      <div className="fixed bottom-0 left-0 w-full flex justify-between items-center px-4" style={{ marginBottom: "-100px" }}>
+  <img src={emma} alt="Emma" className="w-54 h-54 mr-8" style={{ marginLeft: "-30px" }} />
+  <img src={purrscilla} alt="Purrscilla" className="w-54 h-54" style={{ marginRight: "-30px" }} />
+</div>
+
     </main>
   );
 };

@@ -18,16 +18,21 @@ export const Login = ({ setToken }) => {
           password: password.current.value
         }
     
-        loginUser(user).then(res => {
-          if ("token" in res && res.token) {
-            setToken(res.token)
-            navigate("/")
-          }
-          else {
-            setIsUnsuccessful(true)
-          }
-        })
-      }
+        loginUser(user)
+            .then(res => {
+                if ("token" in res && res.token) {
+                    setToken(res.token);
+                    console.log("Token received:", res.token);
+                    navigate("/");
+                } else {
+                    setIsUnsuccessful(true);
+                }
+            })
+            .catch(error => {
+                console.error("Error logging in:", error);
+            });
+    };
+
 
     return (
         <main className="container--login">
