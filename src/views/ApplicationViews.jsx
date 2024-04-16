@@ -9,7 +9,7 @@ import { PostDetail } from "../pages/PostDetails";
 
 
 export const ApplicationViews = ({ token, setToken }) => {
-  console.log("Token in ApplicationViews:", token); 
+  // console.log("Token in ApplicationViews:", token); 
   return (
     <> 
       <Routes>
