@@ -1,136 +1,184 @@
-import React, { useRef, useState } from "react"
+import React, { useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import "./Login.css"
 
-export const Register = () => {
-    const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
-    const [username,setUserName] = useState("")
-    const [firstName, setFirstName] = useState("")
-    const [lastName, setLastName] = useState("")
-    const [city, setCity] = useState("")
-    const [bio, setBio] = useState("")
-    const existDialog = useRef()
-    const navigate = useNavigate()
+import "./Login.css";
+import { registerUser } from "../../managers/AuthManager";
 
-    const handleRegister = (e) => {
-        e.preventDefault()
-        fetch(`http://localhost:8000/register`, {
-            method: "POST",
-            body: JSON.stringify({
-                email,
-                password,
-                username,
-                first_name: firstName,
-                last_name: lastName,
-                city,
-                bio,
-            }),
-            headers: {
-                "Content-Type": "application/json"
-            }
-        })
-        .then(res => res.json())
-        .then(authInfo => {
-            if (authInfo && authInfo.token) {
-                localStorage.setItem("pet_token", JSON.stringify(authInfo.token));
-                console.log("Token stored:", authInfo.token);
-                navigate("/");
-            } else {
-                existDialog.current.showModal();
-            }
-        })
-        .catch(error => {
-            console.error("Error registering user:", error);
-        });
-};
+export const Register = ({ setToken }) => {
+  const firstName = useRef();
+  const lastName = useRef();
+  const email = useRef();
+  const username = useRef();
+  const bio = useRef();
+  const city = useRef()
+  const password = useRef();
+  const verifyPassword = useRef();
+  const passwordDialog = useRef();
+  const navigate = useNavigate();
 
-    return (
-        <main className="container--login">
-            <dialog className="dialog dialog--auth" ref={existDialog}>
-                <div>User does not exist</div>
-                <button className="button--close" onClick={e => existDialog.current.close()}>Close</button>
-            </dialog>
+  const handleRegister = (e) => {
+    e.preventDefault();
+    const newUser = {
+      email: email.current.value,
+      password: password.current.value,
+      username: username.current.value,
+      first_name: firstName.current.value,
+      last_name: lastName.current.value,
+      bio: bio.current.value,
+      city: city.current.value,
+    };
 
-            <section>
-                <form className="form--login" onSubmit={handleRegister}>
-                    <h1 className="text-4xl mt-7 mb-3">Community Pets</h1>
-                    <h2 className="text-xl mb-10">Register new account</h2>
+    registerUser(newUser)
+      .then((authInfo) => {
+        if (authInfo && authInfo.token) {
+          localStorage.setItem("pet_token", JSON.stringify(authInfo.token));
+          console.log("Token stored:", authInfo.token);
+          navigate("/");
+        } else {
+          passwordDialog.current.showModal();
+        }
+      })
+      .catch((error) => {
+        console.error("Error registering user:", error);
+      });
+  };
+
+  return (
+    <main className="container--login">
+      <dialog className="dialog dialog--auth" ref={passwordDialog}>
+        <div>User does not exist</div>
+        <button
+          className="button--close"
+          onClick={(e) => passwordDialog.current.close()}
+        >
+          Close
+        </button>
+      </dialog>
+
+      <section>
+        <form className="form--login" onSubmit={handleRegister}>
+          <h1 className="text-4xl mt-7 mb-3">Community Pets</h1>
+          <h2 className="text-xl mb-10">Register new account</h2>
+         
+          <fieldset className="mb-4">
+            <label htmlFor="firstName"> First name </label>
+            <input
+              type="text"
+              id="firstName"
+              ref={firstName}
+              className="form-control"
+              placeholder=""
+              required
+              autoFocus
+            />
+          </fieldset>
+          <fieldset className="mb-4">
+            <label htmlFor="lastName"> Last name </label>
+            <input
+              type="text"
+              id="lastName"
+              ref={lastName}
+              className="form-control"
+              placeholder=""
+              required
+              autoFocus
+            />
+          </fieldset>
                     <fieldset className="mb-4">
                         <label htmlFor="username"> UserName </label>
-                        <input type="text" id="username"
-                            value={username}
-                            onChange={evt => setUserName(evt.target.value)}
-                            className="form-control"
-                            placeholder=""
-                            required autoFocus />
+                        <input
+              type="text"
+              id="userName"
+              ref={username}
+              className="form-control"
+              placeholder=""
+              required
+              autoFocus
+            />
                     </fieldset>
-                    <fieldset className="mb-4">
-                        <label htmlFor="firstName"> First name </label>
-                        <input type="text" id="firstName"
-                            value={firstName}
-                            onChange={evt => setFirstName(evt.target.value)}
-                            className="form-control"
-                            placeholder=""
-                            required autoFocus />
-                    </fieldset>
-                    <fieldset className="mb-4">
-                        <label htmlFor="lastName"> Last name </label>
-                        <input type="text" id="lastName"
-                            value={lastName}
-                            onChange={evt => setLastName(evt.target.value)}
-                            className="form-control"
-                            placeholder=""
-                            required autoFocus />
-                    </fieldset>
+                    
+                   
                     <fieldset className="mb-4">
                         <label htmlFor="city"> City </label>
-                        <input type="text" id="city"
-                            value={city}
-                            onChange={evt => setCity(evt.target.value)}
-                            className="form-control"
-                            placeholder=""
-                            required autoFocus />
+                        <input
+              type="text"
+              id="ciyy"
+              ref={city}
+              className="form-control"
+              placeholder=""
+              required
+              autoFocus
+            />
                     </fieldset>
                     <fieldset className="mb-4">
                         <label htmlFor="bio"> Short Bio </label>
-                        <input type="text" id="bio"
-                            value={bio}
-                            onChange={evt => setBio(evt.target.value)}
-                            className="form-control"
-                            placeholder=""
-                            required autoFocus />
+                        <input
+              type="text"
+              id="bio"
+              ref={bio}
+              className="form-control"
+              placeholder=""
+              required
+              autoFocus
+            />
                     </fieldset>
                     <fieldset className="mb-4">
                         <label htmlFor="inputEmail"> Email address </label>
-                        <input type="email" id="inputEmail"
-                            value={email}
-                            onChange={evt => setEmail(evt.target.value)}
-                            className="form-control"
-                            placeholder="Email address"
-                            required autoFocus />
+                        <input
+              type="text"
+              id="inputEmail"
+              ref={email}
+              className="form-control"
+              placeholder=""
+              required
+              autoFocus
+            />
                     </fieldset>
                     <fieldset className="mb-4">
                         <label htmlFor="inputPassword"> Password </label>
-                        <input type="password" id="inputPassword"
-                            value={password}
-                            onChange={evt => setPassword(evt.target.value)}
-                            className="form-control"
-                            placeholder="Password"
-                        />
+                        <input
+              type="text"
+              id="inputPassword"
+              ref={password}
+              className="form-control"
+              placeholder=""
+              required
+              autoFocus
+            />
                     </fieldset>
-                    <fieldset>
-                        <button type="submit" className="button p-3 rounded-md bg-blue-800 text-blue-100">
-                            Register
-                        </button>
+                    <fieldset className="mb-4">
+                        <label htmlFor="inputPassword"> Verify Password </label>
+                        <input
+              type="text"
+              id="inputPassword"
+              ref={verifyPassword}
+              className="form-control"
+              placeholder=""
+              required
+              autoFocus
+            />
                     </fieldset>
-                </form>
-            </section>
-            <div className="loginLinks">
-                <section className="link--register">
-                    <Link className="underline text-blue-600 hover:text-blue-800 visited:text-purple-600" to="/login">Already have an account?</Link>
-                </section>
-            </div>
-        </main>
-    )
-}
+           
+          <fieldset>
+            <button
+              type="submit"
+              className="button p-3 rounded-md bg-blue-800 text-blue-100"
+            >
+              Register
+            </button>
+          </fieldset>
+        </form>
+      </section>
+      <div className="loginLinks">
+        <section className="link--register">
+          <Link
+            className="underline text-blue-600 hover:text-blue-800 visited:text-purple-800"
+            to="/login"
+          >
+            Already have an account?
+          </Link>
+        </section>
+      </div>
+    </main>
+  );
+};
