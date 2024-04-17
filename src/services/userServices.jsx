@@ -23,39 +23,6 @@ export const getUser = async () => {
     throw error; 
   }
 };
-// export const getUser = () => {
-//   try {
-//     const token = localStorage.getItem("auth_token");
-//     console.log("Token sent to API:", token);
-
-//     return fetch(`http://localhost:8000/users`, {
-//       method: "GET",
-//       headers: {
-//         Authorization: `Token ${token}`,
-//         "Content-Type": "application/json",
-//       },
-//     })
-//       .then((response) => {
-//         if (!response.ok) {
-//           throw new Error("Failed to fetch user data");
-//         }
-//         return response.json();
-//       })
-//       .then((data) => {
-//         // Filter the user based on the token
-//         const currentUser = data.find((user) => user.token === token);
-//         if (!currentUser) {
-//           throw new Error("User not found");
-//         }
-//         console.log("User Information Fetched:", currentUser);
-//         return currentUser;
-//       });
-//   } catch (error) {
-//     console.error("Error fetching user data:", error);
-//     throw error;
-//   }
-// };
-
 
 
   
