@@ -9,75 +9,37 @@ import purrscilla from "../assets/purrscilla.png";
 
 export const Home = ({ token }) => {
 
-
   const [user, setUser] = useState({});
- 
   const [userPosts, setUserPosts] = useState([]);
   const [userPets, setUserPets] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const getAndSetUser = async () => {
-    try {
-      const userData = await getUser();
-      setUser(userData);
-      console.log("User set:", userData); 
-    } catch (error) {
-      console.error("Error fetching user data:", error);
-    }
-  };
-  
-
-  useEffect(() => {
-    getAndSetUser();
-    console.log("Token here:", token);
-  }, [token]);
- 
   
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const posts = await getAllPosts();
-        setUserPosts(posts.filter((post) => post.is_owner === true));
-
-        const pets = await getUserPets();
-        setUserPets(pets.filter((pet) => pet.is_owner === true));
-
-        setLoading(false);
+        if (token) {
+          const userData = await getUser();
+          setUser(userData);
+  
+          const posts = await getAllPosts();
+          setUserPosts(posts.filter((post) => post.is_owner === true));
+  
+          const pets = await getUserPets();
+          console.log("Fetched Pets:", pets);
+          setUserPets(pets);
+  
+          setLoading(false);
+        }
       } catch (error) {
-        console.error("Error fetching user data:", error);
-        setLoading(false); // Set loading to false in case of error
+        console.error("Error fetching data:", error);
+        setLoading(false);
       }
     };
-
-    if (token) {
-      fetchData();
-    }
-  }, [token]);
-
   
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       if (token) {
-  //         const userData = await getUser();
-  //         setUser(userData);
-
-  //         const posts = await getAllPosts();
-  //         setUserPosts(posts.filter((post) => post.is_owner === true));
-
-  //         const pets = await getUserPets();
-  //         setUserPets(pets.filter((pet) => pet.is_owner === true));
-
-  //         setLoading(false);
-  //       }
-  //     } catch (error) {
-  //       console.error("Error fetching user data:", error);
-  //       setLoading(false);
-  //     }
-  //   };
-
-  //   fetchData();
-  // }, [token]);
+    fetchData();
+  }, [token]);
+  
 
   return (
     <main className="bg-gradient-to-b from-blue-500 to-purple-500 h-full">
