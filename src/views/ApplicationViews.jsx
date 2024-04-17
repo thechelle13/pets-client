@@ -6,6 +6,9 @@ import { Login } from "../components/auth/Login";
 import { PostList } from "../pages/PostList";
 import { PostDetail } from "../pages/PostDetails";
 import { UserEditForm } from "../components/forms/UserEditForm";
+import { PostForm } from "../components/forms/PostForm";
+import { PetForm } from "../components/forms/PetForm";
+import { PetDetails } from "../pages/PetDetails";
 
 
 
@@ -32,7 +35,13 @@ export const ApplicationViews = ({ token, setToken }) => {
   element={<PostDetail token={token} setToken={setToken} />}
 />
 
-                
+<Route path="/add-post" element={<PostForm />} />
+          <Route path="/add-pet" element={<PetForm />} />
+
+          <Route
+    path="/petLists/:petId"
+    element={<PetDetails token={token} setToken={setToken} />}
+/>
 
         </Route>
       </Routes>
