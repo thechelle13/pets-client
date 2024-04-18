@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export const PetForm = () => {
   const [petData, setPetData] = useState({
@@ -7,9 +8,16 @@ export const PetForm = () => {
     image_url: "",
   });
 
+  const navigate = useNavigate();
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setPetData({ ...petData, [name]: value });
+  };
+
+  
+  const handleCancel = () => {
+    navigate("/");
   };
 
   const handleSubmit = (e) => {
@@ -50,6 +58,12 @@ export const PetForm = () => {
           />
         </div>
         <button type="submit">Add Pet</button>
+        <button
+        className="bg-gray-500 text-white px-4 py-2 rounded-md"
+        onClick={() => handleCancel()}
+      >
+        Cancel
+      </button>
       </form>
     </div>
   );

@@ -99,7 +99,7 @@ export const PetDetails = () => {
                 <div className="mb-4">
                   <div>Name: {pet.name}</div>
                   <div>Type: {pet.type}</div>
-                  <div>Image: {pet.image_url}</div>
+                  <div>Image: <img src={pet.image_url} alt={pet.name} className="w-full max-w-md" /></div>
                 </div>
               </>
             )}
@@ -107,7 +107,7 @@ export const PetDetails = () => {
         )}
 
         <div className="mt-4 flex justify-center">
-          {pet && pet.is_owner && (
+          {pet && (
             <>
               {isEditing ? (
                 <>
