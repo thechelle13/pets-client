@@ -20,14 +20,26 @@ export const Home = ({ token }) => {
       try {
         if (token) {
           const userData = await getUser();
+          if (!userData) {
+            console.error("User data is undefined");
+            setLoading(false);
+            return;
+          }
+  
           setUser(userData);
   
           const posts = await getAllPosts();
           setUserPosts(posts.filter((post) => post.is_owner === true));
   
           const pets = await getUserPets();
-          console.log("Fetched Pets:", pets);
-          setUserPets(pets);
+        console.log("Fetched Pets:", pets);
+        
+        // Assuming pets contain an owner ID, filter them based on the user's ID
+        const userOwnedPets = pets.filter((pet) => pet.userId === userData.id); 
+
+
+        setUserPets(userOwnedPets);
+
   
           setLoading(false);
         }
@@ -56,6 +68,7 @@ export const Home = ({ token }) => {
   
     <div className="container mx-auto mt-8 max-w-md">
       <h1 className="text-3xl text-blue-800 font-semibold mb-4 text-center">My Posts</h1>
+       <img src={purrscilla} alt="Purrscilla" className="w-36 h-36 mr-4 ml-2" style={{ marginBottom: "-30px" }}/>
       {loading ? (
         <p className="text-xl font-semibold mb-4 text-center">Loading...</p>
       ) : userPosts.length ? (
@@ -76,14 +89,15 @@ export const Home = ({ token }) => {
   
     <div className="container mx-auto mt-8 max-w-md">
       <h1 className="text-3xl text-blue-800 font-semibold mb-4 text-center">My Pets</h1>
+      <img src={emma} alt="Emma" className="w-36 h-36 ml-4 mr-2" style={{ marginBottom: "-50px" }} />
       {loading ? (
         <p className="text-xl font-semibold mb-4 text-center">Loading...</p>
       ) : userPets.length ? (
         userPets.map((pet) => (
-          <Link key={pet.id} to={`/petLists/${pet.id}`}>
+          <Link key={pet.id} to={`/pets/${pet.id}`}>
             <div className="bg-gray-100 rounded-md p-4 mb-4">
-              <div className="text-xl font-semibold">Number: {pet.id}</div>
-              <div className="text-xl font-semibold">Description: {pet.name}</div>
+              <div className="text-xl font-semibold"># {pet.id}</div>
+              <div className="text-xl font-semibold">Name: {pet.name}</div>
             </div>
           </Link>
         ))
