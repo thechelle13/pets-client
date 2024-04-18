@@ -21,7 +21,7 @@ export const Home = ({ token }) => {
       try {
         if (token) {
           const userData = await getUser();
-          console.log("User data:", userData);
+          
           setUser(userData);
           
           const posts = await getAllPosts();
@@ -36,7 +36,7 @@ export const Home = ({ token }) => {
       } catch (error) {
         console.error("Error fetching data:", error);
         setLoading(false);
-        setLoadingUser(false); // Also set loadingUser to false in case of error
+      
       }
     };
     fetchData();
@@ -54,7 +54,16 @@ export const Home = ({ token }) => {
     {user.length > 0 && `${user[0].first_name} ${user[0].last_name}`}
   </h2>
   <p className="text-blue-800 mb-2">{user.length > 0 && user[0].email}</p>
-  <Link to="/edit-user" className="bg-blue-500 text-white px-3 py-1 rounded-md hover:bg-blue-700">Edit Profile</Link>
+  {user.length && (
+        <Link
+        to={`/edit-user/${user[0].id}`}
+          className="bg-blue-500 text-white px-3 py-1 rounded-md hover:bg-blue-700"
+        >
+          Edit Profile
+        </Link>
+      )}
+
+
 </div>
           
         </div>

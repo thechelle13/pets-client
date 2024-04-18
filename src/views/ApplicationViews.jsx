@@ -22,11 +22,15 @@ export const ApplicationViews = ({ token, setToken }) => {
         <Route element={<Authorized token={token} />}>
           {/* Add Routes here */}
           <Route path="/" element={<Home token={token} setToken={setToken} />} />
-          <Route
+          {/* <Route
             path="/edit-user"
             element={<UserEditForm token={token} setToken={setToken} />} 
-          />
-        
+          /> */}
+<Route
+  path="/edit-user/:userId"
+  element={<UserEditForm token={token} setToken={setToken} />} 
+/>
+       
           <Route
             path="/postLists"
             element={<PostList token={token} setToken={setToken} />}   />
