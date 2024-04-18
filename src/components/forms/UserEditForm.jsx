@@ -72,8 +72,7 @@ export const UserEditForm = ({ token}) => {
           {editedUserInfo.firstName} {editedUserInfo.lastName}
         </h2>
       </div>
-      <p className="text-blue-800 mb-2">{editedUserInfo.email}</p>
-
+    
       <div className="form-field">
         <label className="block font-bold mb-1" htmlFor="first_name">
           First Name:

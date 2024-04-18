@@ -13,7 +13,6 @@ export const getUserPets = () => {
 };
 
 
-
 export const getPetById = (id) => {
   return fetch(`http://localhost:8000/pets/${id}`, {
     method: "GET",
@@ -21,5 +20,16 @@ export const getPetById = (id) => {
       Authorization: `Token ${localStorage.getItem("auth_token")}`,
       "Content-Type": "application/json",
     },
+  }).then((res) => res.json());
+};
+
+export const updatePet = (id, updatedPetInfo) => {
+  return fetch(`http://localhost:8000/pets/${id}`, {
+    method: "PUT",
+    headers: {
+      Authorization: `Token ${localStorage.getItem("auth_token")}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(updatedPetInfo),
   }).then((res) => res.json());
 };
