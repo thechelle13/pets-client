@@ -39,7 +39,7 @@ export const ApplicationViews = ({ token, setToken }) => {
           <Route path="/add-pet" element={<PetForm />} />
 
           <Route
-    path="/petLists/:petId"
+    path="/pets/:petId"
     element={<PetDetails token={token} setToken={setToken} />}
 />
 
