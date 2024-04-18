@@ -12,6 +12,7 @@ export const Home = ({ token }) => {
   const [user, setUser] = useState({});
   const [userPosts, setUserPosts] = useState([]);
   const [userPets, setUserPets] = useState([]);
+  
   const [loading, setLoading] = useState(true);
 
   
@@ -20,35 +21,24 @@ export const Home = ({ token }) => {
       try {
         if (token) {
           const userData = await getUser();
-          if (!userData) {
-            console.error("User data is undefined");
-            setLoading(false);
-            return;
-          }
-  
+          console.log("User data:", userData);
           setUser(userData);
-  
+          
           const posts = await getAllPosts();
           setUserPosts(posts.filter((post) => post.is_owner === true));
   
           const pets = await getUserPets();
-        console.log("Fetched Pets:", pets);
-        
-        // Assuming pets contain an owner ID, filter them based on the user's ID
-        const userOwnedPets = pets.filter((pet) => pet.userId === userData.id); 
-
-
-        setUserPets(userOwnedPets);
-
+          const userOwnedPets = pets.filter((pet) => pet.userId === userData.id);
+          setUserPets(userOwnedPets);
   
           setLoading(false);
         }
       } catch (error) {
         console.error("Error fetching data:", error);
         setLoading(false);
+        setLoadingUser(false); // Also set loadingUser to false in case of error
       }
     };
-  
     fetchData();
   }, [token]);
   
@@ -58,13 +48,17 @@ export const Home = ({ token }) => {
     <div className="bg-gradient-to-b from-blue-200 to-blue-800 text-center my-8 p-6 rounded-lg shadow-lg max-w-md mx-auto">
       <h1 className="text-5xl font-semibold mb-4 text-white">Welcome to Community Pets</h1>
       <div className="user-info-container bg-gray-500 p-6 rounded-md shadow-md">
-        <div className="mb-2">
-          <h2 className="text-3xl font-semibold text-black">{user.map && `${user.first_name} ${user.last_name}`}</h2>
-          <p className="text-blue-800 mb-2">{user && user.email}</p>
-          <Link to="/edit-user" className="bg-blue-500 text-white px-3 py-1 rounded-md hover:bg-blue-700">Edit Profile</Link>
+     
+            <div className="mb-2">
+  <h2 className="text-3xl font-semibold text-black">
+    {user.length > 0 && `${user[0].first_name} ${user[0].last_name}`}
+  </h2>
+  <p className="text-blue-800 mb-2">{user.length > 0 && user[0].email}</p>
+  <Link to="/edit-user" className="bg-blue-500 text-white px-3 py-1 rounded-md hover:bg-blue-700">Edit Profile</Link>
+</div>
+          
         </div>
       </div>
-    </div>
   
     <div className="container mx-auto mt-8 max-w-md">
       <h1 className="text-3xl text-blue-800 font-semibold mb-4 text-center">My Posts</h1>
@@ -109,12 +103,6 @@ export const Home = ({ token }) => {
       </div>
     </div>
   
-  
-{/* 
-<div className="fixed bottom-0 left-0 w-full flex justify-between items-center px-4" style={{ marginBottom: "-30px" }}>
-  <img src={emma} alt="Emma" className="w-36 h-36 ml-4 mr-2" />
-  <img src={purrscilla} alt="Purrscilla" className="w-36 h-36 mr-4 ml-2" />
-</div> */}
 
     </main>
   );
