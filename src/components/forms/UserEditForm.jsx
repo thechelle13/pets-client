@@ -64,6 +64,7 @@ export const UserEditForm = ({ token}) => {
   
 
   return (
+    <main className="bg-gradient-to-b from-blue-500 to-purple-500 h-full">
     <div className="bg-gradient-to-b from-blue-200 to-blue-800 text-center my-8 p-6 rounded-lg shadow-lg max-w-md mx-auto">
       <h1 className="text-5xl font-semibold mb-4 text-white">Edit User Form</h1>
 
@@ -182,5 +183,6 @@ export const UserEditForm = ({ token}) => {
         Cancel
       </button>
     </div>
+    </main>
   );
 };

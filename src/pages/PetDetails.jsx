@@ -45,6 +45,7 @@ export const PetDetails = () => {
   };
 
   return (
+    <main className="bg-gradient-to-b from-blue-500 to-purple-500 h-full">
     <div className="mx-auto max-w-md">
       <div className="mt-4 text-center">
         <h1 className="text-blue-900">Pet</h1>
@@ -143,5 +144,6 @@ export const PetDetails = () => {
         </Link>
       </div>
     </div>
+    </main>
   );
 };

@@ -35,6 +35,7 @@ export const PostList = ({ setToken, token }) => {
 
     return (
         <>
+         <main className="bg-gradient-to-b from-blue-500 to-purple-500 h-full">
             <h1 className="text-3xl text-center mb-4">Post List</h1>
             {isLoading ? (
                 <h3>Loading Posts...</h3>
@@ -66,6 +67,7 @@ export const PostList = ({ setToken, token }) => {
                     ))}
                 </div>
             )}
+            </main>
         </>
     );
 };
