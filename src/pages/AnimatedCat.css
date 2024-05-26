@@ -1,0 +1,225 @@
+/* .cat-container {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: -1; 
+  } */
+
+
+  
+  .cat {
+    position: relative;
+    width: 100px; 
+    height: 200px;
+  }
+  
+  .cat-head {
+    position: absolute;
+    top: 0;
+    left: 25px;
+    background: linear-gradient(#5e5e5e 85%, #45454f 100%);
+    width: 50px;
+    height: 50px;
+    border: 1px solid #000;
+    border-radius: 50%;
+  }
+  
+  .cat-left-ear, .cat-right-ear {
+    position: absolute;
+    top: -10px;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 20px;
+  }
+  
+  .cat-left-ear {
+    left: 5px;
+    border-color: transparent transparent #5e5e5e transparent;
+  }
+  
+  .cat-right-ear {
+    right: 5px;
+    border-color: transparent transparent #5e5e5e transparent;
+  }
+  
+  .cat-left-inner-ear, .cat-right-inner-ear {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 10px;
+  }
+  
+  .cat-left-inner-ear {
+    border-color: transparent transparent #3b3b4f transparent;
+  }
+  
+  .cat-right-inner-ear {
+    border-color: transparent transparent #3b3b4f transparent;
+  }
+  
+  .cat-left-eye, .cat-right-eye {
+    position: absolute;
+    top: 15px;
+    width: 10px;
+    height: 15px;
+    background-color: #000;
+    border-radius: 50%;
+  }
+  
+  .cat-left-eye {
+    left: 10px;
+  }
+  
+  .cat-right-eye {
+    right: 10px;
+  }
+  
+  .cat-left-inner-eye, .cat-right-inner-eye {
+    position: absolute;
+    top: 3px;
+    width: 4px;
+    height: 7px;
+    background-color: #fff;
+    border-radius: 50%;
+  }
+  
+  .cat-left-inner-eye {
+    left: 2px;
+  }
+  
+  .cat-right-inner-eye {
+    right: 2px;
+  }
+  
+  .cat-nose {
+    position: absolute;
+    top: 30px;
+    left: 20px;
+    width: 10px;
+    height: 10px;
+    background-color: #442c2c;
+    border-radius: 50%;
+  }
+  
+  .cat-mouth {
+    position: absolute;
+    top: 40px;
+    left: 10px;
+    width: 30px;
+    height: 20px;
+  }
+  
+  .cat-mouth-line-left, .cat-mouth-line-right {
+    position: absolute;
+    top: 5px;
+    width: 10px;
+    height: 10px;
+    border: 1px solid #000;
+    border-top: none;
+    border-radius: 0 0 10px 10px;
+  }
+  
+  .cat-mouth-line-left {
+    left: 0;
+    transform: rotate(20deg);
+  }
+  
+  .cat-mouth-line-right {
+    right: 0;
+    transform: rotate(-20deg);
+  }
+  
+  .cat-whiskers-left, .cat-whiskers-right {
+    position: absolute;
+    top: 35px;
+    width: 40px;
+    height: 20px;
+  }
+  
+  .cat-whiskers-left {
+    left: -40px;
+  }
+  
+  .cat-whiskers-right {
+    right: -40px;
+  }
+  
+  .cat-whiskers-left div, .cat-whiskers-right div {
+    width: 40px;
+    height: 1px;
+    background-color: #000;
+  }
+  
+  .cat-whisker-left-top {
+    position: absolute;
+    top: 0;
+    transform: rotate(10deg);
+  }
+  
+  .cat-whisker-left-middle {
+    position: absolute;
+    top: 7px;
+    transform: rotate(0deg);
+  }
+  
+  .cat-whisker-left-bottom {
+    position: absolute;
+    top: 14px;
+    transform: rotate(-10deg);
+  }
+  
+  .cat-whisker-right-top {
+    position: absolute;
+    top: 0;
+    transform: rotate(-10deg);
+  }
+  
+  .cat-whisker-right-middle {
+    position: absolute;
+    top: 7px;
+    transform: rotate(0deg);
+  }
+  
+  .cat-whisker-right-bottom {
+    position: absolute;
+    top: 14px;
+    transform: rotate(10deg);
+  }
+  
+  .cat-body {
+    position: absolute;
+    top: 50px;
+    left: 20px;
+    width: 60px;
+    height: 100px;
+    background-color: #5e5e5e;
+    border: 1px solid #000;
+    border-radius: 20px;
+  }
+  
+  .cat-tail {
+    position: absolute;
+    top: 100px;
+    left: 70px;
+    width: 10px;
+    height: 80px;
+    background-color: #5e5e5e;
+    border: 1px solid #000;
+    border-radius: 10px;
+    transform-origin: top;
+    animation: twitch 0.5s infinite alternate;
+  }
+  
+  @keyframes twitch {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(20deg);
+    }
+  }
+  
