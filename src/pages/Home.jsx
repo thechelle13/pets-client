@@ -6,6 +6,7 @@ import { getUserPets } from "../services/petServices";
 
 import emma from "../assets/emma.png";
 import purrscilla from "../assets/purrscilla.png";
+import { AnimatedCat } from "./AnimatedCat";
 
 export const Home = ({ token }) => {
 
@@ -46,6 +47,8 @@ export const Home = ({ token }) => {
   
     return (
       <main className="bg-gradient-to-b from-blue-500 to-purple-500 h-full">
+         {/* <main className="bg-gradient-to-b from-blue-500 to-purple-500 h-full relative"> */}
+         {/* <AnimatedCat /> */}
         <div className="bg-gradient-to-b from-blue-200 to-blue-800 text-center my-8 p-6 rounded-lg shadow-lg max-w-md mx-auto">
           <h1 className="text-5xl font-semibold mb-4 text-white">Welcome to Community Pets</h1>
           <div className="user-info-container bg-gray-500 p-6 rounded-md shadow-md">

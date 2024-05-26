@@ -5,9 +5,17 @@ export const SleepingCat = () => {
   return (
     <div className="main">
       <span className="stand"></span>
+      
       <div className="cat">
-        <div className="body"></div>
+        
+        <div className="body">
+        {/* <div>PRR</div> */}
+        {/* <div className='snooze snooze--1'>PRR</div>
+  <div className='snooze snooze--2'>prr</div>
+  <div className='snooze snooze--3'>prr</div> */}
+        </div>
         <div className="head">
+            
           <div className="ear"></div>
           <div className="ear"></div>
         </div>
