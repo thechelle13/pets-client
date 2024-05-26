@@ -47,4 +47,36 @@ export const AnimatedCat = () => {
   );
 };
 
+// import React from 'react';
+// import './AnimatedCat.css';
+
+// export const AnimatedCat = () => {
+//   return (
+//     <div className="sleeping-cat-container">
+//       <div className="sleeping-cat">
+//         <div className="head">
+//           <div className="ear left-ear"></div>
+//           <div className="ear right-ear"></div>
+//           <div className="eye left-eye"></div>
+//           <div className="eye right-eye"></div>
+//           <div className="nose"></div>
+//           <div className="whiskers left-whiskers">
+//             <div className="whisker"></div>
+//             <div className="whisker"></div>
+//             <div className="whisker"></div>
+//           </div>
+//           <div className="whiskers right-whiskers">
+//             <div className="whisker"></div>
+//             <div className="whisker"></div>
+//             <div className="whisker"></div>
+//           </div>
+//         </div>
+//         <div className="body"></div>
+//         <div className="tail"></div>
+//       </div>
+//     </div>
+//   );
+// };
+
+
 

@@ -2,15 +2,20 @@
     position: fixed;
     bottom: 20px;
     left: 20px;
-    z-index: -1; 
+    z-index: 10; 
   } */
 
+  .cat-container {
+    position: fixed;
+    bottom: 100px;
+    right: 100px;
+    z-index: 10; 
+  }
 
-  
   .cat {
     position: relative;
     width: 100px; 
-    height: 200px;
+    height: 50px;
   }
   
   .cat-head {
@@ -24,26 +29,29 @@
     border-radius: 50%;
   }
   
-  .cat-left-ear, .cat-right-ear {
+  .cat-left-ear {
     position: absolute;
-    top: -10px;
+    top: -35px;
     width: 0;
     height: 0;
     border-style: solid;
     border-width: 20px;
-  }
-  
-  .cat-left-ear {
     left: 5px;
     border-color: transparent transparent #5e5e5e transparent;
   }
-  
+
   .cat-right-ear {
-    right: 5px;
+    position: absolute;
+    top: -35px;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 20px;
+    right: -25px;
     border-color: transparent transparent #5e5e5e transparent;
   }
   
-  .cat-left-inner-ear, .cat-right-inner-ear {
+   .cat-left-inner-ear {
     position: absolute;
     top: 5px;
     left: 5px;
@@ -51,15 +59,20 @@
     height: 0;
     border-style: solid;
     border-width: 10px;
-  }
-  
-  .cat-left-inner-ear {
     border-color: transparent transparent #3b3b4f transparent;
   }
-  
+
   .cat-right-inner-ear {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 10px;
     border-color: transparent transparent #3b3b4f transparent;
   }
+ 
   
   .cat-left-eye, .cat-right-eye {
     position: absolute;
@@ -107,7 +120,7 @@
   
   .cat-mouth {
     position: absolute;
-    top: 40px;
+    top: 85px;
     left: 10px;
     width: 30px;
     height: 20px;
@@ -141,15 +154,15 @@
   }
   
   .cat-whiskers-left {
-    left: -40px;
+    left: -10px;
   }
   
   .cat-whiskers-right {
-    right: -40px;
+    right: -20px;
   }
   
   .cat-whiskers-left div, .cat-whiskers-right div {
-    width: 40px;
+    width: 30px;
     height: 1px;
     background-color: #000;
   }
@@ -190,7 +203,7 @@
     transform: rotate(10deg);
   }
   
-  .cat-body {
+  /* .cat-body {
     position: absolute;
     top: 50px;
     left: 20px;
@@ -199,27 +212,249 @@
     background-color: #5e5e5e;
     border: 1px solid #000;
     border-radius: 20px;
+  } */
+  .cat-body {
+    position: absolute;
+    top: 45px;
+    left: 20px;
+    width: 0;
+    height: 0;
+    border-left: 30px solid transparent;
+    border-right: 30px solid transparent;
+    border-bottom: 50px solid #5e5e5e;
+    border-top: none;
+    border-radius: 0;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
   }
+  
   
   .cat-tail {
     position: absolute;
-    top: 100px;
+    top: 90px;
     left: 70px;
     width: 10px;
     height: 80px;
     background-color: #5e5e5e;
-    border: 1px solid #000;
+    border: 1px solid #272727;
     border-radius: 10px;
     transform-origin: top;
-    animation: twitch 0.5s infinite alternate;
+    animation: twitch 3.0s infinite alternate;
   }
+  
+  /* .cat-tail {
+    height: 18%;
+    width: 100px;
+    background-color: #5e5e5e;
+    top: 100px;
+    left: 70px;
+    border-radius: 50%/250%;
+  } */
+  
+  
+  
+  /* .tail > .tail {
+    height: 100%;
+    transform-origin: center right;
+    transform: rotate(0deg);
+    width: 25px;
+    right: 26%;
+    animation: tail 2s none infinite;
+    border-top-left-radius: 50% 50%;
+    border-bottom-left-radius: 50% 50%;
+    background-color: inherit;
+  } */
   
   @keyframes twitch {
-    0% {
-      transform: rotate(0deg);
+    5% {
+      transform: rotate(-20deg);
     }
+    50% {
+      transform: rotate(-130deg);
+    }
+    70%,
     100% {
-      transform: rotate(20deg);
+      transform: rotate(-50deg);
     }
   }
+
+
+/* 
+  @keyframes twitch {
+    0% {
+      transform: rotate(-130deg);
+    }
+    100% {
+      transform: rotate(-50deg);
+    }
+  } */
   
+  /* .sleeping-cat-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 10; 
+  }
+  
+  .sleeping-cat {
+    position: relative;
+    width: 100px;
+    height: 100px;
+  }
+  
+  .head {
+    position: absolute;
+    top: 0;
+    left: 25px;
+    width: 50px;
+    height: 50px;
+    background-color: black;
+    border-radius: 50%;
+  }
+  
+  .ear {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: black;
+  }
+  
+  .left-ear {
+    top: -10px;
+    left: -10px;
+    transform: rotate(-45deg);
+  }
+  
+  .right-ear {
+    top: -10px;
+    right: -10px;
+    transform: rotate(45deg);
+  }
+  
+  .eye {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    background-color: white;
+    border-radius: 50%;
+  }
+  
+  .left-eye {
+    top: 15px;
+    left: 15px;
+  }
+  
+  .right-eye {
+    top: 15px;
+    right: 15px;
+  }
+  
+  .nose {
+    position: absolute;
+    top: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 20px;
+    background-color: #442c2c;
+    border-top-left-radius: 50%;
+    border-top-right-radius: 50%;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+  
+  .nose:before {
+    content: "";
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 15px solid #442c2c;
+  }
+  
+  .whiskers {
+    position: absolute;
+    top: 30px;
+    width: 40px;
+    height: 20px;
+  }
+  
+  .left-whiskers {
+    left: -40px;
+  }
+  
+  .right-whiskers {
+    right: -40px;
+  }
+  
+  .whisker {
+    position: absolute;
+    width: 40px;
+    height: 2px;
+    background-color: white;
+  }
+  
+  .left-whiskers .whisker {
+    left: 0;
+  }
+  
+  .right-whiskers .whisker {
+    right: 0;
+  }
+  
+  .left-whiskers .whisker:nth-child(1) {
+    top: 0;
+    transform: rotate(-20deg);
+  }
+  
+  .left-whiskers .whisker:nth-child(2) {
+    top: 7px;
+    transform: rotate(0);
+  }
+  
+  .left-whiskers .whisker:nth-child(3) {
+    top: 14px;
+    transform: rotate(20deg);
+  }
+  
+  .right-whiskers .whisker:nth-child(1) {
+    top: 0;
+    transform: rotate(20deg);
+  }
+  
+  .right-whiskers .whisker:nth-child(2) {
+    top: 7px;
+    transform: rotate(0);
+  }
+  
+  .right-whiskers .whisker:nth-child(3) {
+    top: 14px;
+    transform: rotate(-20deg);
+  }
+  
+  .body {
+    position: absolute;
+    top: 45px;
+    left: 15px;
+    width: 70px;
+    height: 50px;
+    background-color: black;
+    border-radius: 50%;
+  }
+  
+  .tail {
+    position: absolute;
+    top: 75px;
+    left: 60px;
+    width: 40px;
+    height: 10px;
+    background-color: black;
+    border-radius: 50%;
+    transform: rotate(45deg);
+  }
+   */
+
