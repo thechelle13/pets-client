@@ -44,6 +44,8 @@ npm install -D tailwindcss postcss autoprefixer
 3. Replace the contents of `tailwind.config.js` with the provided configuration.
 4. Replace the contents of `index.css` with the provided CSS.
 
+####  Acknowledgements
 
+This project includes an animated sleeping cat design and animation inspired by a CodePen created by agoodwin.  The animation can be found on the "Add Pet" UI. While modifications and updates have been made to fit the specific needs of this project, the foundational animation and design concepts are credited to agoodwin's original work. Additionally, the animation was converted from CodePen to a modular format suitable for Visual Studio.
 
-
+You can view the original CodePen here:  http://codepen.io/agoodwin/pen/ypeWYE
