@@ -225,7 +225,6 @@
     0% { transform: rotate(0); }
     10% { transform: rotate(10deg); }
     20% { transform: rotate(-5deg); }
-    30% { transform: rotate(30deg); }
     40% { transform: rotate(-2deg); }
     70% { transform: rotate(10deg); }
     80% { transform: rotate(-5deg); }

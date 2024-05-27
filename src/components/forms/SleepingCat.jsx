@@ -9,10 +9,7 @@ export const SleepingCat = () => {
       <div className="cat">
         
         <div className="body">
-        {/* <div>PRR</div> */}
-        {/* <div className='snooze snooze--1'>PRR</div>
-  <div className='snooze snooze--2'>prr</div>
-  <div className='snooze snooze--3'>prr</div> */}
+        
         </div>
         <div className="head">
             
@@ -45,6 +42,9 @@ export const SleepingCat = () => {
             </div>
           </div>
         </div>
+        <div className="purring purring--1">zzz</div>
+      <div className="purring purring--2">zzz</div>
+      <div className="purring purring--3">zzz</div>
       </div>
     </div>
   );
