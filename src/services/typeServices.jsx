@@ -6,8 +6,5 @@ export const getTypes = () => {
         "Content-Type": "application/json",
       },
     })
-    .then((res) => {
-    
-      return res.json();
-    });
+    .then((res) => res.json())
   };

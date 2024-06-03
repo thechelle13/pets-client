@@ -4,19 +4,17 @@ import { SleepingCat } from "./SleepingCat";
 import { getTypes } from "../../services/typeServices";
 import { getUser } from "../../services/userServices";
 
-export const PetForm = ({token}) => {
+export const PetForm = ({ token }) => {
   const [user, setUser] = useState({});
   const [petData, setPetData] = useState({
     name: "",
     type: "",
     image_url: "",
   });
-
   const [types, setTypes] = useState([]);
-
   const [loading, setLoading] = useState(true);
 
-useEffect(() => {
+  useEffect(() => {
     const fetchData = async () => {
       try {
         if (token) {
@@ -52,20 +50,9 @@ useEffect(() => {
     console.log("Pet data submitted:", petData);
   };
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   try {
-  //     await addPet({ ...petData, user: user.id }, token); 
-  //     console.log("Pet data submitted:", petData);
-  //     navigate("/"); 
-  //   } catch (error) {
-  //     console.error("Error submitting pet data:", error);
-  //   }
-  // };
-
-  // if (loading) {
-  //   return <div>Loading...</div>;
-  // }
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="mx-auto max-w-md">
@@ -88,10 +75,11 @@ useEffect(() => {
             value={petData.type}
             onChange={handleInputChange}
             className="border border-gray-300 rounded-md px-3 py-2 w-full"
+            style={{ color: 'black', backgroundColor: 'white' }} // Ensure the text and background colors are set
           >
             <option value="">Select type</option>
             {types.map((type) => (
-              <option key={type.id} value={type.id}>
+              <option key={type.id} value={type.id} style={{ color: 'black', backgroundColor: 'white' }}>
                 {type.name}
               </option>
             ))}
