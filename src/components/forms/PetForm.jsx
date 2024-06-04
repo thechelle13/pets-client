@@ -71,20 +71,24 @@ export const PetForm = ({ token }) => {
         <div className="flex items-center">
           <label className="mr-2">Type:</label>
           <select
-            name="type"
-            value={petData.type}
-            onChange={handleInputChange}
-            className="border border-gray-300 rounded-md px-3 py-2 w-full"
-            style={{ color: 'black', backgroundColor: 'white' }} // Ensure the text and background colors are set
-          >
-            <option value="">Select type</option>
-            {types.map((type) => (
-              <option key={type.id} value={type.id} style={{ color: 'black', backgroundColor: 'white' }}>
-                {type.name}
-              </option>
-            ))}
-          </select>
+  name="type"
+  value={petData.type}
+  onChange={handleInputChange}
+  className="border border-gray-300 rounded-md px-3 py-2 w-full"
+  style={{ color: 'black', backgroundColor: 'white' }} 
+>
+  <option value="">Select type</option>
+  {types.map((type) => {
+    console.log(type); 
+    return (
+      <option key={type.id} value={type.id} style={{ color: 'black', backgroundColor: 'white' }}>
+        {type.name}
+      </option>
+    );
+  })}
+</select>
         </div>
+        
         <div className="flex items-center">
           <label className="mr-2">Image URL:</label>
           <input
