@@ -23,6 +23,16 @@ export const getPetById = (id) => {
   }).then((res) => res.json());
 };
 
+// export const createPet = (pet) => {
+//   return fetch(`http://localhost:8000/pets)`, {
+// method:Post,
+// headers: {
+//   Authorization: `Token ${localStorage.getItem("auth_token")}`,
+//       "Content-Type": "application/json"  },
+//       body: JSON.stringify(pet)
+//     }).then((res) => res.json())
+// }
+
 export const updatePet = (id, updatedPetInfo) => {
   return fetch(`http://localhost:8000/pets/${id}`, {
     method: "PUT",
