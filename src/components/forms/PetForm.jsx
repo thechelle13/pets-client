@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { SleepingCat } from "./SleepingCat";
 import { getTypes } from "../../services/typeServices";
 import { getUser } from "../../services/userServices";
+import { updatePet } from "../../services/petServices";
 
 export const PetForm = ({ token }) => {
   const [user, setUser] = useState({});
@@ -22,11 +23,11 @@ export const PetForm = ({ token }) => {
           setUser(userData);
 
           const typesData = await getTypes();
-          console.log("Fetched types:", typesData);  // Debug log
+         
           setTypes(typesData);
 
           setLoading(false);
-          console.log("Types state after set:", types);  // Debug log
+          
         }
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -41,23 +42,41 @@ export const PetForm = ({ token }) => {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setPetData({ ...petData, [name]: value });
-    console.log("Updated petData:", petData);  // Debug log
   };
 
   const handleCancel = () => {
     navigate("/");
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Pet data submitted:", petData);
-  };
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   console.log("Pet data submitted:", petData);
+  // };
 
-  if (loading) {
-    console.log("Loading...");
-    return <div>Loading...</div>;
-  }
-  console.log("Rendering form...");
+  // if (loading) {
+  //   console.log("Loading...");
+  //   return <div>Loading...</div>;
+  // }
+  // console.log("Rendering form...");
+
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await updatePet(user.id, petData); 
+      if (response.status === 200) {
+        console.log("Pet data submitted successfully:", petData);
+      
+        navigate("/");
+      } else {
+        console.error("Failed to submit pet data:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Error submitting pet data:", error);
+    }
+  };
+  
+  
 
   return (
     <div className="mx-auto max-w-md">
@@ -88,7 +107,7 @@ export const PetForm = ({ token }) => {
           >
             <option value="">Select type</option>
             {types.map((type) => {
-              console.log("Rendering type:", type);  // Debug log
+             
               return (
                 <option 
                   key={type.id} 
@@ -122,6 +141,7 @@ export const PetForm = ({ token }) => {
           <button
             type="submit"
             className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition-colors"
+            onClick={handleSubmit}
           >
             Add Pet
           </button>
