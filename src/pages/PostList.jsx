@@ -15,23 +15,23 @@ export const PostList = ({ setToken, token }) => {
         });
     }, []);
 
-    const handleAddComment = async (postId, commentText) => {
-        // Call the service function to add a comment to the post
-        await addCommentToPost(postId, commentText);
-        // Refresh posts after adding comment
-        getAllPosts().then(postsArray => {
-            setPosts(postsArray);
-        });
-    };
+    // const handleAddComment = async (postId, commentText) => {
+    //     // Call the service function to add a comment to the post
+    //     await addCommentToPost(postId, commentText);
+    //     // Refresh posts after adding comment
+    //     getAllPosts().then(postsArray => {
+    //         setPosts(postsArray);
+    //     });
+    // };
 
-    const handleAddLike = async (postId) => {
-        // Call the service function to add a like to the post
-        await addLikeToPost(postId);
-        // Refresh posts after adding like
-        getAllPosts().then(postsArray => {
-            setPosts(postsArray);
-        });
-    };
+    // const handleAddLike = async (postId) => {
+    //     // Call the service function to add a like to the post
+    //     await addLikeToPost(postId);
+    //     // Refresh posts after adding like
+    //     getAllPosts().then(postsArray => {
+    //         setPosts(postsArray);
+    //     });
+    // };
 
     return (
         <>
@@ -50,14 +50,14 @@ export const PostList = ({ setToken, token }) => {
                             {/* <p>Owner: {post.petuser.user.username}</p> */}
                             <p>City: {post.pet_user.city}</p>
                             <div className="flex items-center justify-between">
-                            <button 
+                            {/* <button 
                                     className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-700 focus:outline-none focus:ring focus:border-blue-300 flex items-center space-x-1"
                                     onClick={() => handleAddLike(post.id)}>
                                     <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 5v14m0-14l-4 4m4-4l4 4M5 12h14"/>
                                     </svg>
                                     <span>Like</span>
-                                </button>
+                                </button> */}
                                 <Link key={post.id} to={`/postLists/${post.id}`} 
                                 className="text-blue-800">
                                     View Details
