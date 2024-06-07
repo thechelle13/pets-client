@@ -63,16 +63,19 @@ export const UserEditForm = ({ token }) => {
   };
 
   const handleDelete = async () => {
-    try {
-      const response = await deleteUser(userId);
-      if (response.ok) {
-        console.log("User deleted successfully");
-        navigate("/"); // Redirect after deletion
-      } else {
-        console.error("Failed to delete user");
+    const confirmed = window.confirm("Are you sure you would like to delete your profile?");
+    if (confirmed) {
+      try {
+        const response = await deleteUser(userId);
+        if (response.ok) {
+          console.log("User deleted successfully");
+          navigate("/login"); // Redirect to login page after deletion
+        } else {
+          console.error("Failed to delete user");
+        }
+      } catch (error) {
+        console.error("Error deleting user:", error);
       }
-    } catch (error) {
-      console.error("Error deleting user:", error);
     }
   };
 
@@ -95,7 +98,6 @@ export const UserEditForm = ({ token }) => {
             className="textarea-field border p-2 w-full"
             id="first_name"
             type="text"
-            placeholder=""
             value={editedUserInfo.firstName}
             onChange={(e) =>
               setEditedUserInfo((prevUserInfo) => ({
@@ -103,6 +105,7 @@ export const UserEditForm = ({ token }) => {
                 firstName: e.target.value,
               }))
             }
+            autoComplete="off"
           />
         </div>
 
@@ -114,7 +117,6 @@ export const UserEditForm = ({ token }) => {
             className="input-field border p-2 w-full"
             id="last_name"
             type="text"
-            placeholder=""
             value={editedUserInfo.lastName}
             onChange={(e) =>
               setEditedUserInfo((prevUserInfo) => ({
@@ -122,6 +124,7 @@ export const UserEditForm = ({ token }) => {
                 lastName: e.target.value,
               }))
             }
+            autoComplete="off"
           />
         </div>
 
@@ -133,7 +136,6 @@ export const UserEditForm = ({ token }) => {
             className="input-field border p-2 w-full"
             id="email"
             type="email"
-            placeholder=""
             value={editedUserInfo.email}
             onChange={(e) =>
               setEditedUserInfo((prevUserInfo) => ({
@@ -141,6 +143,7 @@ export const UserEditForm = ({ token }) => {
                 email: e.target.value,
               }))
             }
+            autoComplete="off"
           />
         </div>
 
@@ -152,7 +155,6 @@ export const UserEditForm = ({ token }) => {
             className="input-field border p-2 w-full"
             id="bio"
             type="text"
-            placeholder=""
             value={editedUserInfo.petUser.bio}
             onChange={(e) =>
               setEditedUserInfo((prevUserInfo) => ({
@@ -160,6 +162,7 @@ export const UserEditForm = ({ token }) => {
                 petUser: { ...prevUserInfo.petUser, bio: e.target.value },
               }))
             }
+            autoComplete="off"
           />
         </div>
 
@@ -171,7 +174,6 @@ export const UserEditForm = ({ token }) => {
             className="input-field border p-2 w-full"
             id="city"
             type="text"
-            placeholder=""
             value={editedUserInfo.petUser.city}
             onChange={(e) =>
               setEditedUserInfo((prevUserInfo) => ({
@@ -179,6 +181,7 @@ export const UserEditForm = ({ token }) => {
                 petUser: { ...prevUserInfo.petUser, city: e.target.value },
               }))
             }
+            autoComplete="off"
           />
         </div>
 
@@ -191,7 +194,7 @@ export const UserEditForm = ({ token }) => {
             {savingChanges ? "Saving..." : "Save"}
           </button>
           <button
-            className="bg-gray-500 text-white px-4 py-2 rounded-md"
+            className="bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-700"
             onClick={handleCancel}
           >
             Cancel
@@ -200,7 +203,7 @@ export const UserEditForm = ({ token }) => {
 
         <div className="mt-6">
           <button
-            className="bg-red-500 text-white px-4 py-2 rounded-md"
+            className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-700"
             onClick={handleDelete}
           >
             Delete Profile
