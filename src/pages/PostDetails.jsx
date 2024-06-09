@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { getPostById, updatePost } from "../services/postServices";
-import { getUser } from "../services/userServices";
+import { getUser, getUserById } from "../services/userServices";
 
 export const PostDetail = ({ token }) => {
   const [user, setUser] = useState({});
-  const { postId } = useParams();
+  const { userId, postId } = useParams(); // Corrected destructuring
   const [post, setPost] = useState(null);
   const [commentText, setCommentText] = useState(""); 
   const [isCommenting, setIsCommenting] = useState(false); 
@@ -18,6 +18,7 @@ export const PostDetail = ({ token }) => {
   });
   const [savingChanges, setSavingChanges] = useState(false);
   const [liked, setLiked] = useState(false);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -31,28 +32,50 @@ export const PostDetail = ({ token }) => {
         console.error("Error fetching user data:", error);
       }
     };
-  
+
     fetchData();
   }, [token]);
-  
 
   useEffect(() => {
-    getPostById(postId).then((post) => {
-      setPost(post);
-      setEditedPostInfo({
-        description: post.description,
-        sitStartDate: post.sitStartDate,
-        sitEndDate: post.sitEndDate,
-        likes: post.likes,
-      });
-    });
+    const fetchUserById = async () => {
+      try {
+        if (userId) {
+          const user = await getUserById(userId);
+          setUser(user);
+        }
+      } catch (error) {
+        console.error("Error fetching user by ID:", error);
+      }
+    };
+
+    fetchUserById();
+  }, [userId]);
+
+  useEffect(() => {
+    const fetchPostById = async () => {
+      try {
+        const post = await getPostById(postId);
+        setPost(post);
+        setEditedPostInfo({
+          description: post.description,
+          sitStartDate: post.sitStartDate,
+          sitEndDate: post.sitEndDate,
+          likes: post.likes,
+        });
+      } catch (error) {
+        console.error("Error fetching post by ID:", error);
+      }
+    };
+
+    fetchPostById();
   }, [postId]);
 
   const handleEdit = () => {
     setIsEditing(true);
   };
 
-  const handleSave = async () => {
+  const handleSave = async (e) => {
+    e.preventDefault(); // Prevent form default behavior
     try {
       setSavingChanges(true);
       await updatePost(postId, editedPostInfo);
@@ -85,38 +108,31 @@ export const PostDetail = ({ token }) => {
   };
 
   const handleLike = () => {
-    if (!liked) {
-      setEditedPostInfo((prev) => ({
-        ...prev,
-        likes: prev.likes + 1,
-      }));
-      setPost((prevPost) => ({
-        ...prevPost,
-        likes: prevPost.likes + 1,
-      }));
-      setLiked(true); 
-    } else {
-      setEditedPostInfo((prev) => ({
-        ...prev,
-        likes: prev.likes - 1,
-      }));
-      setPost((prevPost) => ({
-        ...prevPost,
-        likes: prevPost.likes - 1,
-      }));
-      setLiked(false); 
-    }
+    const updatedLikes = liked ? editedPostInfo.likes - 1 : editedPostInfo.likes + 1;
+    setEditedPostInfo((prev) => ({
+      ...prev,
+      likes: updatedLikes,
+    }));
+    setPost((prevPost) => ({
+      ...prevPost,
+      likes: updatedLikes,
+    }));
+    setLiked(!liked);
   };
 
+  if (!post) {
+    return <div>Loading...</div>;
+  }
+
   return (
-    <div className="bg-gradient-to-b from-blue-500 to-purple-500 h-full">
+    <main className="bg-gradient-to-b from-blue-500 to-purple-500 min-h-screen flex flex-col">
       <div className="mx-auto max-w-md">
         <div className="mt-4 text-center">
-          <h1 className="text-blue-900">Post</h1>
+          <h1 className="text-blue-900">Post Details {postId}</h1>
         </div>
         <div className="my-4 p-4 border rounded">
           {isEditing ? (
-            <form>
+            <form onSubmit={handleSave}>
               <div className="mb-4">
                 <label htmlFor="description" className="block font-bold mb-2">Description:</label>
                 <input type="text" name="description" id="description" value={editedPostInfo.description} onChange={handleInputChange} className="border border-gray-300 rounded-md px-4 py-2 w-full" />
@@ -132,7 +148,7 @@ export const PostDetail = ({ token }) => {
               <div className="flex justify-between">
                 <button
                   className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-700"
-                  onClick={handleSave}
+                  type="submit"
                   disabled={savingChanges}
                 >
                   {savingChanges ? "Saving..." : "Save"}
@@ -148,21 +164,19 @@ export const PostDetail = ({ token }) => {
           ) : (
             <div>
               <div className="mb-4">
-                <div className="text-xl font-bold">City: {post?.pet_user?.city}</div>
-                <div>Username: {user.username}</div>
-                <div>Description: {post?.description}</div>
-                <div>Sit Start Date: {post?.sitStartDate}</div>
-                <div>Sit End Date: {post?.sitEndDate}</div>
-                <div>Likes: {post?.likes}</div>
-                <button className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-700 focus:outline-none focus:ring focus:border-green-300 ml-2"  onClick={handleLike}>{liked ? 'Unlike' : 'Like'}</button>
+                <div className="text-xl font-bold">City: {post?.pet_user?.city || "Unknown"}</div>
+                <div>Pet User Id: {post?.pet_user?.id || "Unknown"}</div>
+                <div>Description: {post?.description || "No description"}</div>
+                <div>Sit Start Date: {post?.sitStartDate || "N/A"}</div>
+                <div>Sit End Date: {post?.sitEndDate || "N/A"}</div>
+                <div>Likes: {post?.likes || 0}</div>
               </div>
               <div className="mt-4">
                 <h2 className="text-lg font-bold mb-2">Comments</h2>
                 {post?.comments?.length ? (
                   post.comments.map((comment) => (
                     <div key={comment.id} className="mb-2 p-2 border rounded">
-                      <div><strong>{comment.petuser?.id}:</strong> 
-                      {comment.text}</div>
+                      <div><strong>{comment.petuser?.id}:</strong> {comment.text}</div>
                       <div className="text-sm text-gray-600">{new Date(comment.timestamp).toLocaleString()}</div>
                     </div>
                   ))
@@ -174,71 +188,73 @@ export const PostDetail = ({ token }) => {
                 <button 
                   className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-700 focus:outline-none focus:ring focus:border-blue-300"
                   onClick={toggleCommenting} 
-                  >
-                    {isCommenting ? 'Cancel' : 'Add Comment'}
-                  </button>
-                </div>
+                >
+                  {isCommenting ? 'Cancel' : 'Add Comment'}
+                </button>
               </div>
-            )}
-            {isCommenting && ( 
-              <div>
-                <textarea
-                  className="mt-2 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
-                  rows="3"
-                  placeholder="Add a comment"
-                  value={commentText} 
-                  onChange={(e) => setCommentText(e.target.value)}
-                />
-                <div className="mt-2 flex justify-between">
-                  <button 
-                    className="bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-700 focus:outline-none focus:ring focus:border-gray-300"
-                    onClick={toggleCommenting}
+            </div>
+          )}
+          {isCommenting && ( 
+            <div>
+              <textarea
+                className="mt-2 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
+                rows="3"
+                placeholder="Add a comment"
+                value={commentText} 
+                onChange={(e) => setCommentText(e.target.value)}
+              />
+              <div className="mt-2 flex justify-between">
+                <button 
+                  className="bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-700 focus:outline-none focus:ring focus:border-gray-300"
+                  onClick={toggleCommenting}
+                >
+                  Cancel
+                </button>
+                <button 
+                  className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-700 focus:outline-none focus:ring focus:border-blue-300 ml-2"
+                  onClick={handleAddComment}
+                >
+                  Add Comment
+                </button>
+              </div>
+            </div>
+          )}
+          {post?.is_owner && (
+            <div className="mt-4 flex justify-center">
+              {isEditing ? (
+                <div className="flex">
+                  <button
+                    className="bg-blue-500 text-white px-4 py-2 rounded-md mr-2 hover:bg-blue-700"
+                    onClick={handleSave}
+                    disabled={savingChanges}
+                  >
+                    {savingChanges ? "Saving..." : "Save"}
+                  </button>
+                  <button
+                    className="bg-gray-500 text-white px-4 py-2 rounded-md mr-2 hover:bg-gray-700"
+                    onClick={handleCancel}
                   >
                     Cancel
                   </button>
-                  <button 
-                    className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-700 focus:outline-none focus:ring focus:border-blue-300 ml-2"
-                    onClick={handleAddComment}
-                  >
-                    Add Comment
-                  </button>
                 </div>
-              </div>
-            )}
-            {post?.is_owner && (
-              <div className="mt-4 flex justify-center">
-                {isEditing ? (
-                  <div className="flex">
-                    <button
-                      className="bg-blue-500 text-white px-4 py-2 rounded-md mr-2 hover:bg-blue-700"
-                      onClick={handleSave}
-                      disabled={savingChanges}
-                    >
-                      {savingChanges ? "Saving..." : "Save"}
-                    </button>
-                    <button
-                      className="bg-gray-500 text-white px-4 py-2 rounded-md mr-2 hover:bg-gray-700"
-                      onClick={handleCancel}
-                    >
-                      Cancel
-                    </button>
-                  </div>
-                ) : (
-                  <button
-                    className="bg-blue-500 text-white px-4 py-2 rounded-md mr-2 hover:bg-blue-700"
-                    onClick={handleEdit}
-                  >
-                    Edit
-                  </button>
-                )}
-              </div>
-            )}
-          </div>
-          <div className="mt-4 text-center">
-            <Link to="/postLists" className="text-blue-900 hover:underline">Back to Posts</Link>
-          </div>
+              ) : (
+                <button
+                  className="bg-blue-500 text-white px-4 py-2 rounded-md mr-2 hover:bg-blue-700"
+                  onClick={handleEdit}
+                >
+                  Edit
+                </button>
+              )}
+            </div>
+          )}
+        </div>
+        <button className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-700 focus:outline-none focus:ring focus:border-green-300 ml-2"  onClick={handleLike}>
+          {liked ? 'Unlike' : 'Like'}
+        </button>
+        <div className="mt-4 text-center">
+          <Link to="/postLists" className="text-blue-900 hover:underline">Back to Posts</Link>
         </div>
       </div>
-    );
-  };
-  
+    </main>
+  );
+};

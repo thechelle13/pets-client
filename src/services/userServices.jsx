@@ -23,6 +23,16 @@ export const getUser = async () => {
 };
 
 
+export const getUserById = (id) => {
+  return fetch(`http://localhost:8000/users/${id}`, {
+    method: "GET",
+    headers: {
+      Authorization: `Token ${localStorage.getItem("auth_token")}`,
+      "Content-Type": "application/json",
+    },
+  }).then((res) => res.json());
+};
+
   export const updateUser = (userId, updatedUser) => {
     console.log("Data sent to API for edit:", updatedUser);
     return fetch(`http://localhost:8000/users/${userId}`, {
