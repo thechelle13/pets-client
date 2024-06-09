@@ -50,9 +50,9 @@ export const Home = ({ token }) => {
          <AnimatedCat />
         <div className="bg-gradient-to-b from-blue-200 to-blue-800 text-center my-8 p-6 rounded-lg shadow-lg max-w-md mx-auto">
           <h1 className="text-5xl font-semibold mb-4 text-white">Welcome to Community Pets</h1>
-          <div className="user-info-container bg-gray-500 p-6 rounded-md shadow-md">
+          <div className="user-info-container bg-transparent p-6 rounded-md shadow-xl">
             <div className="mb-2">
-              <h2 className="text-3xl font-semibold text-black">
+              <h2 className="text-3xl font-semibold text-blue-900">
                 {user.length > 0 && `${user[0].first_name} ${user[0].last_name}`}
               </h2>
               <p className="text-blue-800 mb-2">{user.length > 0 && user[0].email} </p>
@@ -67,7 +67,7 @@ export const Home = ({ token }) => {
           </div>
         </div>
     
-        <div className="container mx-auto mt-8 max-w-md">
+        <div className="text-center my-8 p-6 rounded-lg shadow-lg max-w-md mx-auto">
           <h1 className="text-3xl text-blue-800 font-semibold mb-4 text-center">My Posts</h1>
           <img src={purrscilla} alt="Purrscilla" className="w-36 h-36 mr-4 ml-2" style={{ marginBottom: "-30px" }} />
           {loading ? (
@@ -88,7 +88,7 @@ export const Home = ({ token }) => {
           </div>
         </div>
     
-        <div className="container mx-auto mt-8 max-w-md">
+        <div className="text-center my-8 p-6 rounded-lg shadow-lg max-w-md mx-auto">
   
         <h1 className="text-3xl text-blue-800 font-semibold mb-4 text-center">My Pets</h1>
         <img src={emma} alt="Emma" className="w-36 h-36 ml-4 mr-2" style={{ marginBottom: "-50px" }} />
