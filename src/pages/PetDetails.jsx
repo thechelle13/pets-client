@@ -44,17 +44,22 @@ export const PetDetails = () => {
     }
   };
 
+{/* <main className="bg-gradient-to-b from-blue-500 to-purple-500 h-full">
+      <div className="bg-gradient-to-b from-blue-200 to-blue-800 text-center my-8 p-6 rounded-lg shadow-lg max-w-md mx-auto">
+        */}
+
   return (
-    <main className="bg-gradient-to-b from-blue-500 to-purple-500 h-full">
-    <div className="mx-auto max-w-md">
-      <div className="mt-4 text-center">
-        <h1 className="text-blue-900">Pet</h1>
-      </div>
-      <div className="my-4 p-4 border rounded">
+
+    
+    <main className="bg-gradient-to-b from-blue-500 to-purple-500 min-h-screen flex flex-col">
+    <div className="text-center my-8 p-6 rounded-lg shadow-lg max-w-md mx-auto">
+      
+      {/* <div className="my-4 p-4 border rounded"> */}
+      <h1 className="text-5xl font-semibold mb-4 text-white">Pet</h1>
         {pet && (
           <>
             {isEditing ? (
-              <form>
+              <form className="bg-gradient-to-b from-green-200 to-green-800 text-center p-6 rounded-lg shadow-lg w-full max-w-2xl mx-auto">
                 <div className="mb-4">
                   <label htmlFor="name" className="block font-bold mb-2">
                     Name:
@@ -142,7 +147,7 @@ export const PetDetails = () => {
         <Link to="/" className="text-blue-900 hover:underline">
           Back to Home
         </Link>
-      </div>
+      {/* </div> */}
     </div>
     </main>
   );
