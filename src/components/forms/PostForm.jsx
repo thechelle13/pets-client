@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { createPost } from "../../services/postServices";
 
 export const PostForm = () => {
   const [postData, setPostData] = useState({
@@ -15,11 +16,46 @@ export const PostForm = () => {
     setPostData({ ...postData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+   
+  //   console.log("Post data submitted:", postData);
+  //   setPostData({
+  //     description: "",
+  //     sitStartDate: "",
+  //     sitEndDate: "",
+  //   });
+  //   navigate("/");
+  // };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Add logic to submit post data
-    console.log("Post data submitted:", postData);
+  
+    try {
+      const newPostData = {
+        ...postData,
+       
+      };
+      const response = await createPost(newPostData);
+  
+      if (!response.ok) {
+        throw new Error('Failed to add post');
+      }
+  
+     
+      console.log('Post added successfully');
+      setPostData({
+        description: '',
+        sitStartDate: '',
+        sitEndDate: '',
+      });
+      navigate('/');
+    } catch (error) {
+      console.error('Error adding post:', error);
+    
+    }
   };
+  
 
   const handleCancel = () => {
     navigate("/");
