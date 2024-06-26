@@ -23,7 +23,6 @@ export const UserEditForm = ({ token }) => {
       try {
         if (token) {
           const userData = await getUser(userId);
-          console.log("User Data:", userData[0]);
           const user = userData[0];
           setEditedUserInfo({
             email: user.email || "",
@@ -51,10 +50,23 @@ export const UserEditForm = ({ token }) => {
   const saveChanges = async () => {
     try {
       setSavingChanges(true);
-      console.log("Updating user with data:", editedUserInfo);
-      const response = await updateUser(userId, editedUserInfo);
-      console.log("Update response:", response); // Log the response
-      // Handle success
+      const updatedUser = {
+        id: userId,
+        username: editedUserInfo.email.split('@')[0], 
+        first_name: editedUserInfo.firstName,
+        last_name: editedUserInfo.lastName,
+        email: editedUserInfo.email,
+        pet_user: {
+          bio: editedUserInfo.petUser.bio,
+          city: editedUserInfo.petUser.city,
+        },
+      };
+      const response = await updateUser(userId, updatedUser);
+      if (!response.ok) {
+        throw new Error("Failed to update user");
+      }
+      console.log("Update response:", await response.json());
+      navigate("/");
     } catch (error) {
       console.error("Error updating user info:", error);
     } finally {
@@ -69,7 +81,7 @@ export const UserEditForm = ({ token }) => {
         const response = await deleteUser(userId);
         if (response.ok) {
           console.log("User deleted successfully");
-          navigate("/login"); // Redirect to login page after deletion
+          navigate("/login"); 
         } else {
           console.error("Failed to delete user");
         }
