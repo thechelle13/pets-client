@@ -5,7 +5,7 @@ import { getUser, getUserById } from "../services/userServices";
 
 export const PostDetail = ({ token }) => {
   const [user, setUser] = useState({});
-  const { userId, postId } = useParams(); // Corrected destructuring
+  const { userId, postId } = useParams(); 
   const [post, setPost] = useState(null);
   const [commentText, setCommentText] = useState(""); 
   const [isCommenting, setIsCommenting] = useState(false); 
@@ -75,7 +75,7 @@ export const PostDetail = ({ token }) => {
   };
 
   const handleSave = async (e) => {
-    e.preventDefault(); // Prevent form default behavior
+    e.preventDefault(); 
     try {
       setSavingChanges(true);
       await updatePost(postId, editedPostInfo);
@@ -223,7 +223,7 @@ export const PostDetail = ({ token }) => {
             <div className="mt-4 flex justify-center">
               {isEditing ? (
                 <div className="flex">
-                  <button
+                  {/* <button
                     className="bg-blue-500 text-white px-4 py-2 rounded-md mr-2 hover:bg-blue-700"
                     onClick={handleSave}
                     disabled={savingChanges}
@@ -235,7 +235,7 @@ export const PostDetail = ({ token }) => {
                     onClick={handleCancel}
                   >
                     Cancel
-                  </button>
+                  </button> */}
                 </div>
               ) : (
                 <button

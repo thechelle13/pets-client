@@ -8,6 +8,51 @@ export const getAllPosts = () => {
     }).then((res) => res.json());
   };
 
+  export const createPost = async (postData, token) => {
+    try {
+      const response = await fetch(`http://localhost:8000/posts`, {
+        method: "POST",
+        headers: {
+          Authorization: `Token ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(postData),
+      });
+  
+      if (!response.ok) {
+        throw new Error("Failed to create post");
+      }
+  
+      return response.json(); 
+    } catch (error) {
+      console.error("Error creating post:", error);
+      throw error;
+    }
+  };
+  // export const createPost = async (postData, token) => {
+  //   try {
+  //     const response = await fetch(`http://localhost:8000/posts`, {
+  //       method: "POST",
+  //       headers: {
+  //         Authorization: `Token ${token}`,
+  //         "Content-Type": "application/json",
+  //     },
+  //       body: JSON.stringify(postData),
+  //     });
+  
+  //     if (!response.ok) {
+  //       const errorMessage = await response.text();
+  //       throw new Error(`Failed to create post: ${errorMessage}`);
+  //     }
+  
+  //     return response.json();
+  //   } catch (error) {
+  //     console.error("Error creating post:", error);
+  //     throw error;
+  //   }
+  // };
+  
+
   export const deletePost = (postId) => {
     return fetch(`http://localhost:8000/posts/${postId}`, {
       method: "DELETE",
@@ -30,23 +75,17 @@ export const getAllPosts = () => {
 
 
 export const updatePost = async (postId, postData) => {
-  try {
-    const response = await fetch(`/api/posts/${postId}`, {
+ 
+    return fetch(`http://localhost:8000/posts/${postId}`, {
       method: 'PUT',
       headers: {
+        Authorization: `Token ${localStorage.getItem("auth_token")}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(postData),
     });
     
-    if (!response.ok) {
-      throw new Error('Failed to update post');
-    }
-
-    return await response.json();
-  } catch (error) {
-    throw new Error('Error updating post: ' + error.message);
-  }
+  
 };
 
 
