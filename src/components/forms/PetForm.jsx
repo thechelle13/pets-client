@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { SleepingCat } from "./SleepingCat";
 import { getTypes } from "../../services/typeServices";
 import { getUser } from "../../services/userServices";
-import { updatePet } from "../../services/petServices";
+import { createPet } from "../../services/petServices";
 
 export const PetForm = ({ token }) => {
   const [user, setUser] = useState({});
@@ -23,14 +23,12 @@ export const PetForm = ({ token }) => {
         if (token) {
           const userData = await getUser(token);
           console.log("User Data:", userData);
-          setUser(userData);
+          setUser(userData[0]); 
 
           const typesData = await getTypes();
-         
           setTypes(typesData);
 
           setLoading(false);
-          
         }
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -39,7 +37,6 @@ export const PetForm = ({ token }) => {
     };
     fetchData();
   }, [token]);
-
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -53,12 +50,16 @@ export const PetForm = ({ token }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("Submitting pet data:", petData);
-    console.log("User ID:", user.id); 
+    console.log("User ID:", user.id);
     try {
-      console.log("User ID:", user.id);
-      const response = await updatePet(user.id, petData);
-      console.log("Update pet response:", response); 
-      if (response.status === 200) {
+      const newPetData = {
+        ...petData,
+        user: user.id, 
+      };
+      const response = await createPet(newPetData, token);
+      console.log("Create pet response:", response);
+      navigate("/");
+      if (response.status === 201 || response.status === 200) {
         console.log("Pet data submitted successfully:", petData);
         navigate("/");
       } else {
@@ -68,8 +69,7 @@ export const PetForm = ({ token }) => {
       console.error("Error submitting pet data:", error);
     }
   };
-  
-    
+
   return (
     <main className="bg-gradient-to-b from-blue-500 to-purple-500 min-h-screen flex flex-col">
       <div className="flex flex-col items-center mt-4">
@@ -128,7 +128,6 @@ export const PetForm = ({ token }) => {
             <button
               type="submit"
               className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition-colors"
-              onClick={handleSubmit}
             >
               Add Pet
             </button>
