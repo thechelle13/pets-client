@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
-import { getPetById, updatePet } from "../services/petServices";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { deletePet, getPetById, updatePet } from "../services/petServices";
 
 export const PetDetails = () => {
   const { petId } = useParams();
   const [pet, setPet] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
   const [savingChanges, setSavingChanges] = useState(false);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     getPetById(petId)
@@ -18,6 +20,17 @@ export const PetDetails = () => {
 
   const handleEdit = () => {
     setIsEditing(true);
+  };
+
+  const handleDeletePet = async () => {
+    if (window.confirm("Are you sure you want to delete this pet?")) {
+      try {
+        await deletePet(petId);
+        navigate("/");
+      } catch (error) {
+        console.error("Error deleting pet:", error);
+      }
+    }
   };
 
   const handleCancel = () => {
@@ -138,7 +151,14 @@ export const PetDetails = () => {
                 >
                   Edit
                 </button>
+                
               )}
+              <button
+                  className="bg-red-500 text-white px-4 py-2 rounded-md mr-2 hover:bg-red-700"
+                  onClick={handleDeletePet}
+                >
+                  Delete Pet
+                </button>
             </>
           )}
         </div>
