@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { deletePet, getPetById, updatePet } from "../services/petServices";
+import { getTypes } from "../services/typeServices";
 
 export const PetDetails = () => {
   const { petId } = useParams();
   const [pet, setPet] = useState(null);
+  const [types, setTypes] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
   const [savingChanges, setSavingChanges] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const navigate = useNavigate();
 
@@ -17,6 +20,20 @@ export const PetDetails = () => {
       })
       .catch((error) => console.error("Error fetching pet:", error));
   }, [petId]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const typesData = await getTypes();
+        setTypes(typesData);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, []);
 
   const handleEdit = () => {
     setIsEditing(true);
@@ -57,17 +74,10 @@ export const PetDetails = () => {
     }
   };
 
-{/* <main className="bg-gradient-to-b from-blue-500 to-purple-500 h-full">
-      <div className="bg-gradient-to-b from-blue-200 to-blue-800 text-center my-8 p-6 rounded-lg shadow-lg max-w-md mx-auto">
-        */}
 
   return (
-
-    
     <main className="bg-gradient-to-b from-blue-500 to-purple-500 min-h-screen flex flex-col">
     <div className="text-center my-8 p-6 rounded-lg shadow-lg max-w-md mx-auto">
-      
-      {/* <div className="my-4 p-4 border rounded"> */}
       <h1 className="text-5xl font-semibold mb-4 text-white">Pet</h1>
         {pet && (
           <>
@@ -80,33 +90,39 @@ export const PetDetails = () => {
                   <input
                     type="text"
                     name="name"
-                    id="description"
+                    id="name"
                     value={pet.name}
                     onChange={handleInputChange}
                     className="border border-gray-300 rounded-md px-4 py-2 w-full"
+                    
                   />
                 </div>
                 <div className="mb-4">
                   <label htmlFor="type" className="block font-bold mb-2">
                     Type:
                   </label>
-                  <input
-                    type="text"
+                  <select
                     name="type"
-                    id="sitStartDate"
+                    id="type"
                     value={pet.type}
                     onChange={handleInputChange}
                     className="border border-gray-300 rounded-md px-4 py-2 w-full"
-                  />
+                  >
+                    {types.map((type) => (
+                      <option key={type.id} value={type.label}>
+                        {type.label}
+                      </option>
+                    ))}
+                  </select>
                 </div>
                 <div className="mb-4">
-                  <label htmlFor="image" className="block font-bold mb-2">
+                  <label htmlFor="image_url" className="block font-bold mb-2">
                     Image:
                   </label>
                   <input
                     type="text"
                     name="image_url"
-                    id="sitEndDate"
+                    id="image_url"
                     value={pet.image_url}
                     onChange={handleInputChange}
                     className="border border-gray-300 rounded-md px-4 py-2 w-full"

@@ -8,6 +8,27 @@ export const getAllPosts = () => {
     }).then((res) => res.json());
   };
 
+  // export const createPost = async (postData, token) => {
+  //   try {
+  //     const response = await fetch(`http://localhost:8000/posts`, {
+  //       method: "POST",
+  //       headers: {
+  //         Authorization: `Token ${token}`,
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify(postData),
+  //     });
+  
+  //     if (!response.ok) {
+  //       throw new Error("Failed to create post");
+  //     }
+  
+  //     return response.json(); 
+  //   } catch (error) {
+  //     console.error("Error creating post:", error);
+  //     throw error;
+  //   }
+  // };
   export const createPost = async (postData, token) => {
     try {
       const response = await fetch(`http://localhost:8000/posts`, {
@@ -20,37 +41,17 @@ export const getAllPosts = () => {
       });
   
       if (!response.ok) {
-        throw new Error("Failed to create post");
+        const errorMessage = await response.text();
+        throw new Error(`Failed to create post: ${errorMessage}`);
       }
   
-      return response.json(); 
+      return response.json();
     } catch (error) {
       console.error("Error creating post:", error);
       throw error;
     }
   };
-  // export const createPost = async (postData, token) => {
-  //   try {
-  //     const response = await fetch(`http://localhost:8000/posts`, {
-  //       method: "POST",
-  //       headers: {
-  //         Authorization: `Token ${token}`,
-  //         "Content-Type": "application/json",
-  //     },
-  //       body: JSON.stringify(postData),
-  //     });
   
-  //     if (!response.ok) {
-  //       const errorMessage = await response.text();
-  //       throw new Error(`Failed to create post: ${errorMessage}`);
-  //     }
-  
-  //     return response.json();
-  //   } catch (error) {
-  //     console.error("Error creating post:", error);
-  //     throw error;
-  //   }
-  // };
   
 
   export const deletePost = (postId) => {

@@ -39,7 +39,7 @@ export const ApplicationViews = ({ token, setToken }) => {
   element={<PostDetail token={token} setToken={setToken} />}
 />
 
-<Route path="/add-post" element={<PostForm />} />
+<Route path="/add-post" element={<PostForm token={token} setToken={setToken}/>} />
           <Route path="/add-pet" element={<PetForm token={token} setToken={setToken} />} />
 
           <Route
