@@ -5,15 +5,17 @@ import { getUserPets } from "../../services/petServices";
 import { getUser } from "../../services/userServices";
 
 export const PostForm = ({ token }) => {
+  const [user, setUser] = useState({});
   const [postData, setPostData] = useState({
+    pet_user: user.id,
     description: "",
     sitStartDate: "",
     sitEndDate: "",
-    pet: [], 
+    pets: [], 
     likes: 0,
   });
   const [userPets, setUserPets] = useState([]);
-  const [user, setUser] = useState({});
+ 
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
@@ -43,34 +45,27 @@ export const PostForm = ({ token }) => {
   };
 
   const handlePetChange = (e) => {
-    const { name, value } = e.target;
-    setPostData({
-      ...postData,
-      pet: {
-        ...postData.pet,
-        [name]: value,
-      },
-    });
+    const { value } = e.target;
+    setPostData({ ...postData, pet: value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      const newPostData = { ...postData };
-      const response = await createPost(newPostData, token);
+      const response = await createPost(postData, token);
 
       if (!response.ok) {
-        const errorMessage = await response.text();
-        throw new Error(`Failed to add post: ${errorMessage}`);
+        throw new Error(`Failed to add post: ${response.statusText}`);
       }
 
       console.log("Post added successfully");
       setPostData({
+        pet_user: user.id,
         description: "",
         sitStartDate: "",
         sitEndDate: "",
-        pet: [],
+        pets: [],
         likes: 0,
       });
       navigate("/");
@@ -132,14 +127,14 @@ export const PostForm = ({ token }) => {
             />
           </div>
           <div className="form-field mb-4">
-            <label className="block font-bold mb-1 text-black" htmlFor="petName">
-              Pet Name:
+            <label className="block font-bold mb-1 text-black" htmlFor="pet">
+              Select Pet:
             </label>
             <select
               className="input-field border p-2 w-full"
               name="pet"
               id="pet"
-              value={postData.pet.id || ""}
+              value={postData.pet || ""}
               onChange={handlePetChange}
             >
               <option value="">Select a pet</option>
@@ -171,3 +166,5 @@ export const PostForm = ({ token }) => {
     </main>
   );
 };
+
+
