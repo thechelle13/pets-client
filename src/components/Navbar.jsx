@@ -3,7 +3,6 @@ import { Link, useNavigate } from "react-router-dom";
 
 
 export const NavBar = ({ token, setToken }) => {
-  // console.log("Token in NavBar:", token); 
   
   const navigate = useNavigate();
   const navbar = useRef();
@@ -15,10 +14,15 @@ export const NavBar = ({ token, setToken }) => {
   };
 
   return (
-    <nav className="navbar mb-3 rounded-md w-full" role="navigation" aria-label="main navigation" style={{background: 'linear-gradient(to bottom, #808080, #000000)'}}>
+      <nav 
+       className="navbar mb-3 rounded-md w-full fixed top-0 left-0 right-0 z-50"
+        role="navigation" 
+        aria-label="main navigation" 
+        style={{background: 'linear-gradient(to bottom, #808080, #000000)'}}
+      >
       <div className="flex items-center justify-between px-4 py-2">
         {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-        <a
+        <button
           role="button"
           className="navbar-burger"
           aria-label="menu"
@@ -30,7 +34,7 @@ export const NavBar = ({ token, setToken }) => {
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
-        </a>
+        </button>
       </div>
 
       <div className="navbar-menu w-full" ref={navbar}>
