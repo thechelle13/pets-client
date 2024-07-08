@@ -23,7 +23,7 @@ export const PetForm = ({ token }) => {
         if (token) {
           const userData = await getUser(token);
           console.log("User Data:", userData);
-          setUser(userData[0]); 
+          setUser(userData[0]);
 
           const typesData = await getTypes();
           setTypes(typesData);
@@ -54,7 +54,7 @@ export const PetForm = ({ token }) => {
     try {
       const newPetData = {
         ...petData,
-        user: user.id, 
+        user: user.id,
       };
       const response = await createPet(newPetData, token);
       console.log("Create pet response:", response);
@@ -71,12 +71,17 @@ export const PetForm = ({ token }) => {
   };
 
   return (
-    <main className="bg-gradient-to-b from-blue-500 to-purple-500 min-h-screen flex flex-col">
-      <div className="flex flex-col items-center mt-4">
-        <form onSubmit={handleSubmit} className="bg-gradient-to-b from-green-200 to-green-800 text-center p-4 rounded-lg shadow-lg max-w-md mx-auto">
+    <main className="bg-gradient-to-b from-blue-500 to-purple-500 min-h-screen flex flex-col justify-between">
+      <div className="flex flex-col items-center mt-24">
+        <form
+          onSubmit={handleSubmit}
+          className="bg-gradient-to-b from-green-200 to-green-800 text-center p-4 rounded-lg shadow-lg max-w-md mx-auto"
+        >
           <h1 className="text-5xl font-semibold mb-4 text-white">Add Pet</h1>
           <div className="flex items-center mb-4">
-            <label htmlFor="name" className="mr-2">Pet Name:</label>
+            <label htmlFor="name" className="mr-2">
+              Pet Name:
+            </label>
             <input
               type="text"
               id="name"
@@ -89,21 +94,23 @@ export const PetForm = ({ token }) => {
           </div>
 
           <div className="flex items-center mb-4">
-            <label htmlFor="type" className="mr-2">Type:</label>
+            <label htmlFor="type" className="mr-2">
+              Type:
+            </label>
             <select
               name="type"
               id="type"
               value={petData.type}
               onChange={handleInputChange}
               className="border border-gray-300 rounded-md px-3 py-2 w-full"
-              style={{ color: 'black', backgroundColor: 'white' }}
+              style={{ color: "black", backgroundColor: "white" }}
             >
               <option value="">Select type</option>
               {types.map((type) => (
-                <option 
-                  key={type.id} 
-                  value={type.id} 
-                  style={{ color: 'black', backgroundColor: 'white' }}
+                <option
+                  key={type.id}
+                  value={type.id}
+                  style={{ color: "black", backgroundColor: "white" }}
                 >
                   {type.label}
                 </option>
@@ -112,7 +119,9 @@ export const PetForm = ({ token }) => {
           </div>
 
           <div className="flex items-center mb-4">
-            <label htmlFor="image_url" className="mr-2">Image URL:</label>
+            <label htmlFor="image_url" className="mr-2">
+              Image URL:
+            </label>
             <input
               type="text"
               id="image_url"
@@ -141,9 +150,10 @@ export const PetForm = ({ token }) => {
           </div>
         </form>
       </div>
-      <div className="mt-16">
+      <div className="flex justify-center items-end">
         <SleepingCat />
       </div>
+      <div className="mouse-hole"></div>
     </main>
   );
 };
