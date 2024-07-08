@@ -80,7 +80,7 @@ export const PostForm = ({ token }) => {
 
   return (
     <main className="bg-gradient-to-b from-blue-500 to-purple-500 min-h-screen flex flex-col">
-      <div className="flex flex-col items-center mt-4">
+      <div className="flex flex-col items-center mt-24">
         <form
           onSubmit={handleSubmit}
           className="bg-gradient-to-b from-green-200 to-green-800 text-center p-6 rounded-lg shadow-lg w-full max-w-2xl mx-auto"
