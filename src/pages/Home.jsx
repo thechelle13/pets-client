@@ -46,9 +46,9 @@ export const Home = ({ token }) => {
 
   
     return (
-      <main className="bg-gradient-to-b from-blue-500 to-purple-500 h-full">
+      <div className="bg-gradient-to-b from-blue-500 to-purple-500 min-h-screen">
          <AnimatedCat />
-        <div className="bg-gradient-to-b from-blue-200 to-blue-800 text-center my-8 p-6 rounded-lg shadow-lg max-w-md mx-auto">
+        <div className="bg-gradient-to-b from-blue-200 to-blue-800 text-center my-8 p-6 rounded-lg shadow-lg max-w-md mx-auto mt-24">
           <h1 className="text-5xl font-semibold mb-4 text-white">Welcome to Community Pets</h1>
           <div className="user-info-container bg-transparent p-6 rounded-md shadow-xl">
             <div className="mb-2">
@@ -111,7 +111,7 @@ export const Home = ({ token }) => {
       </div>
       </div>
     
-      </main>
+      </div>
     );
     
 }
