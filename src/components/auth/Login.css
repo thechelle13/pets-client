@@ -16,7 +16,7 @@ fieldset {
     padding: 0 1.5rem;
 }
 
-.form--login {
+/* .form--login {
     display: inline-block;
     margin: 0 auto;
     text-align: left;
@@ -24,7 +24,7 @@ fieldset {
     z-index: 1;
     min-height: 25rem;
     min-width: 35rem;
-}
+} */
 
 .form--login > fieldset > input {
     width: 25em;
@@ -35,7 +35,7 @@ fieldset {
     display: inline-block;
 }
 
-.form-control {
+/* .form-control {
     display: block;
     width: 94%;
     height: calc(1.5em + .75rem + 2px);
@@ -50,7 +50,7 @@ fieldset {
     border-radius: .25rem;
     -webkit-transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
     transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
-}
+} */
 
 .container--login {
     text-align: center;
@@ -64,4 +64,27 @@ fieldset {
 .dialog {
     min-width: 15rem;
     min-height: 5rem;
+}
+
+.form--login {
+   
+    margin: 0 auto;
+    text-align: left;
+    padding: 1rem; 
+    z-index: 1;
+    min-height: auto;
+    max-width: 100%; 
+}
+
+.form-control {
+    width: 100%;
+}
+
+.fieldset {
+    border: none; 
+}
+
+.loginLinks {
+    justify-content: center;
+    padding: 1rem;
 }
