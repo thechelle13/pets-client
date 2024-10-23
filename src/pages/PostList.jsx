@@ -24,7 +24,6 @@ export const PostList = ({ setToken, token }) => {
         };
         fetchData();
     }, [token]);
-    
 
     useEffect(() => {
         getAllPosts().then(postsArray => {
@@ -35,16 +34,17 @@ export const PostList = ({ setToken, token }) => {
 
     return (
         <main className="bg-gradient-to-b from-blue-500 to-purple-500 min-h-screen">
-            <h1 className="text-center text-5xl font-semibold mb-4 text-white">Post List</h1>
+            <h1 className="text-center text-5xl font-semibold mb-4 text-white mt-24"> 
+                Post List
+            </h1>
             {isLoading ? (
                 <h3 className="text-white text-center">Loading Posts...</h3>
             ) : (
                 <div className="mx-auto max-w-lg">
                     {posts.map(post => (
-                        <div key={post.id} className="my-4 p-4 border rounded">
+                        <div key={post.id} className="my-4 p-4 border rounded bg-white">
                             <h3>PetUser #: {post.pet_user.id}</h3>
                             {user && <h3>User Name: {user.username}</h3>}
-                            {/* <h3>User Name: {user.username}</h3> */}
                             <h2 className="text-lg font-semibold">{post.description}</h2>
                             <p>Start Date: {post.sitStartDate}</p>
                             <p>End Date: {post.sitEndDate}</p>
