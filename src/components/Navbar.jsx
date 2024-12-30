@@ -18,7 +18,9 @@ export const NavBar = ({ token, setToken }) => {
       aria-label="main navigation"
     >
       <div className="flex items-center justify-between px-4 py-2 h-12">
-        <Link to="/" className="text-2xl font-bold">Community Pets</Link>
+        <Link to="/" className="text-2xl font-bold">
+          Community Pets
+        </Link>
         <button
           role="button"
           className="block md:hidden focus:outline-none"
@@ -34,22 +36,29 @@ export const NavBar = ({ token, setToken }) => {
       </div>
 
       <div
-        className={`md:flex md:items-center md:justify-between w-full ${navbar.current && navbar.current.classList.contains('is-active') ? 'block' : 'hidden'}`}
+        className={`md:flex md:items-center md:justify-center w-full ${
+          navbar.current && navbar.current.classList.contains("is-active")
+            ? "block"
+            : "hidden"
+        }`}
         ref={navbar}
       >
-        <div className="md:flex md:items-center md:justify-start md:space-x-8">
-          {token && (
-            <>
-              <Link to="/" className="block md:inline-block py-2 px-4 hover:text-blue-400">Home</Link>
-              <Link to="/postLists" className="block md:inline-block py-2 px-4 hover:text-blue-400">Posts</Link>
-            </>
-          )}
-        </div>
-
-        <div className="md:flex md:items-center md:space-x-4">
-          {token ? (
+        {token && (
+          <div className="flex items-center justify-center space-x-8">
+            <Link
+              to="/"
+              className="py-2 px-4 text-center hover:text-blue-400"
+            >
+              Home
+            </Link>
+            <Link
+              to="/postLists"
+              className="py-2 px-4 text-center hover:text-blue-400"
+            >
+              Posts
+            </Link>
             <button
-              className="block md:inline-block py-2 px-4 border border-blue-400 rounded hover:bg-blue-400 hover:text-white transition"
+              className="py-2 px-6 bg-gradient-to-r from-blue-500 to-blue-700 text-white rounded-full hover:from-blue-600 hover:to-blue-800 shadow-lg transition-all text-center"
               onClick={() => {
                 setToken("");
                 navigate("/login");
@@ -57,13 +66,8 @@ export const NavBar = ({ token, setToken }) => {
             >
               LOGOUT
             </button>
-          ) : (
-            <>
-              <Link to="/register" className="block md:inline-block py-2 px-4 border border-blue-400 rounded hover:bg-blue-400 hover:text-white transition">Register</Link>
-              <Link to="/login" className="block md:inline-block py-2 px-4 border border-blue-400 rounded hover:bg-blue-400 hover:text-white transition">Login</Link>
-            </>
-          )}
-        </div>
+          </div>
+        )}
       </div>
     </nav>
   );
